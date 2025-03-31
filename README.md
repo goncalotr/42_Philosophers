@@ -55,3 +55,4 @@ Run the program:
 - Makefile is used to compile the project.
 Its compiled with `cc` with the flags `-Wall` `-Wextra` `-Werror`.
 The makefile includes the standard rules: `all`, `clean`, `fclean`, and `re`.
+- Libft is not authorized.
