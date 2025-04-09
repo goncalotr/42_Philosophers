@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/04/09 11:25:41 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/04/09 11:48:37 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	philo_check_valid_args(int argc, char **argv)
 	int		i;
 
 	if (argc < 5 || argc > 6)
-		return (phi_error_msg("Wrong number of arguments."\
+		return (philo_error_msg("Wrong number of arguments."\
 "Usage: ./philo num_philo time_die time_eat time_sleep [num_meals]"));
 	i = 1;
 	while (i < argc)
@@ -31,11 +31,11 @@ int	philo_check_valid_args(int argc, char **argv)
 		if (temp_val == -1)
 			return (philo_error_msg("Arguments must be positive integers."));
 		if (temp_val == 0 && i == 1)
-			return (phi_error_msg("Number of philosophers must be > 0."));
+			return (philo_error_msg("Number of philosophers must be > 0."));
 		if (temp_val > INT_MAX)
-			return (phi_error_msg("Argument value too large."));
+			return (philo_error_msg("Argument value too large."));
 		if (i == 1 && temp_val > PHILO_MAX)
-			return(phi_error_msg("Number of philosophers exceeds PHILO_MAX."));
+			return (philo_error_msg("Number of philosophers exceeds PHILO_MAX."));
 		i++;
 	}
 	return (0);
@@ -51,44 +51,12 @@ int	philo_init_program(t_program *program, t_philo *philos, int argc, char **arg
 {
 	program->philos = philos;
 	program->dead_flag = 0;
-	program->num_of_philo = ft_atol(argv[1]);
-	program->num_times_to_eat = -1;
-	if (argc == 6)
-	{
-		program->num_times_to_eat = ft_atol(argv[5]);
-		if (program->num_meals_required == 0)
-			program->dead_flag = 1;
-	}
-	if (pthread_mutex_init(&program->dead_lock, NULL) != 0)
-		return (phi_error_msg("Mutex init failed (dead_lock)"));
-	if (pthread_mutex_init(&program->meal_lock, NULL) != 0)
-	{
-		pthread_mutex_destroy(&program->dead_lock);
-		return (phi_error_msg("Mutex init failed (meal_lock)"));
-	}
-	if (pthread_mutex_init(&program->write_lock, NULL) != 0)
-	{
-		pthread_mutex_destroy(&program->dead_lock);
-		pthread_mutex_destroy(&program->meal_lock);
-		return (phi_error_msg("Mutex init failed (write_lock)"));
-	}
-	return (0);
-}
-
-/*
- * @brief Initializes the mutexes for the forks.
- * @return 0 on success, 1 on error (destroys already created forks).
- */
-int	philo_init_program(t_program *program, t_philo *philos, int argc, char **argv)
-{
-	program->philos = philos;
-	program->dead_flag = 0;
 	program->num_of_philos = ft_atol(argv[1]);
 	program->num_times_to_eat = -1;
 	if (argc == 6)
 	{
-		program->num_meals_required = ft_atol(argv[5]);
-		if (program->num_meals_required == 0)
+		program->num_times_to_eat = ft_atol(argv[5]);
+		if (program->num_times_to_eat == 0)
 			program->dead_flag = 1;
 	}
 	if (pthread_mutex_init(&program->dead_lock, NULL) != 0)
@@ -102,7 +70,7 @@ int	philo_init_program(t_program *program, t_philo *philos, int argc, char **arg
 	{
 		pthread_mutex_destroy(&program->dead_lock);
 		pthread_mutex_destroy(&program->meal_lock);
-		return (phi_error_msg("Mutex init failed (write_lock)"));
+		return (philo_error_msg("Mutex init failed (write_lock)"));
 	}
 	return (0);
 }
@@ -120,9 +88,9 @@ int	philo_init_forks(pthread_mutex_t *forks, int num_philosophers)
 	{
 		if (pthread_mutex_init(&forks[i], NULL) != 0)
 		{
-			while (--i > = 0)
+			while (--i >= 0)
 				pthread_mutex_destroy(&forks[i]);
-			return (phi_error_msg("Mutex init failed (forks)"));
+			return (philo_error_msg("Mutex init failed (forks)"));
 		}
 		i++;
 	}
@@ -151,10 +119,10 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 		program->philos[i].eating = 0;
 		program->philos[i].meals_eaten = 0;
 		program->philos[i].num_of_philos = program->num_of_philos;
-		program->philos[i].time_to_die = (size_t)ft_atol(program->program->philos->program->argv[2]);
-		program->philos[i].time_to_eat = (size_t)ft_atol(program->program->philos->program->argv[3]);
-		program->philos[i].time_to_sleep = (size_t)ft_atol(program->program->philos->program->argv[4]);
-		program->philos[i].num_times_to_eat = program->num_meals_required;
+		program->philos[i].time_to_die = (size_t)ft_atol(program->philos->program->argv[2]);
+		program->philos[i].time_to_eat = (size_t)ft_atol(program->philos->program->argv[3]);
+		program->philos[i].time_to_sleep = (size_t)ft_atol(program->philos->program->argv[4]);
+		program->philos[i].num_times_to_eat = program->num_times_to_eat;
 		program->philos[i].start_time = start_time;
 		program->philos[i].last_meal_time = start_time;
 		program->philos[i].program = program;
@@ -163,7 +131,7 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 		if (program->philos[i].id % 2 == 0)
 		{
 			program->philos[i].left_fork = &forks[(i + 1) % program->num_of_philos];
-			program->pihlos[i].right_forks = &forks[i];
+			program->philos[i].right_fork = &forks[i];
 		}
 		i++;
 	}

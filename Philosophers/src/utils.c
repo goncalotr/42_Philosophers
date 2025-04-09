@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:17:37 by goteixei          #+#    #+#             */
-/*   Updated: 2025/04/09 11:27:16 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:30:53 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	philo_error_msg(char *str)
  * @param program Pointer to the program struct.
  * @param forks Pointer to the forks mutex array.
  */
-void	philo_destory_all(char *str, t_program *program, pthread_mutex_t *forks)
+void	philo_destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
 {
 	int	i;
 
@@ -141,12 +141,12 @@ void	philo_print_status(t_philo *philo, char *status_msg, int unlock_write)
 	pthread_mutex_lock(&philo->program->dead_lock);
 	if (!philo->program->dead_flag)
 	{
-		time_ms = phi_get_time() - philo->start_time;
-		printf("%zu %d %s\n", time_ms, philo->id, status_msg)
+		time_ms = philo_get_time() - philo->start_time;
+		printf("%zu %d %s\n", time_ms, philo->id, status_msg);
 	}
-	phtread_mutex_unlock(&philo->program->dead_lock)
+	pthread_mutex_unlock(&philo->program->dead_lock);
 	if (unlock_write)
-		pthread_mutex_unlock(&philo->program->write_lock)
+		pthread_mutex_unlock(&philo->program->write_lock);
 	else
 		pthread_mutex_unlock(&philo->program->write_lock);
 }
