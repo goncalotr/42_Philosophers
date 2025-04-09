@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/04/09 09:07:50 by goteixei         ###   ########.fr        #
+#    Updated: 2025/04/09 09:15:20 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,15 +33,11 @@ INC_DIR			= inc/
 LIB_DIR			= lib/
 SRC_DIR			= src/
 
-# Libraries
-LIBFT			= $(LIBFT_DIR)libft.a
-
 # --- Compiler and Flags ---
 CC				= cc
 RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror -g
 CFLAGS			+= -I$(INC_DIR)
-CFLAGS			+= -I$(LIBFT_SRC_DIR)
 
 # -------------------------------------------------------------
 # MANDATORY
@@ -79,18 +75,18 @@ clean:
 				@echo "$(YELLOW)Object files cleaning start$(RESET)"
 				@echo "Cleaning project objects..."
 				@$(RM) $(MANDATORY_OBJ)
-				@echo "Cleaning Libft objects (if possible)..."
-				@-if [ -d "$(LIBFT_SRC_DIR)" ]; then make -s -C $(LIBFT_SRC_DIR) clean; fi
+#				@echo "Cleaning Libft objects (if possible)..."
+#				@-if [ -d "$(LIBFT_SRC_DIR)" ]; then make -s -C $(LIBFT_SRC_DIR) clean; fi
 				@echo "$(GREEN)Object files cleaned successfully!$(RESET)"
 
 fclean:			clean
 				@echo "$(YELLOW)Executable files cleaning start$(RESET)"
 				@echo "Cleaning executable $(NAME)..."
 				@$(RM) $(NAME)
-				@echo "Cleaning Libft library (if possible)..."
-				@-if [ -d "$(LIBFT_SRC_DIR)" ]; then make -s -C $(LIBFT_SRC_DIR) fclean; fi
-				@echo "Removing entire Libft repository clone directory $(LIBFT_REPO_DIR)..."
-				@$(RM) $(LIBFT_REPO_DIR)
+#				@echo "Cleaning Libft library (if possible)..."
+#				@-if [ -d "$(LIBFT_SRC_DIR)" ]; then make -s -C $(LIBFT_SRC_DIR) fclean; fi
+#				@echo "Removing entire Libft repository clone directory $(LIBFT_REPO_DIR)..."
+#				@$(RM) $(LIBFT_REPO_DIR)
 				@echo "$(GREEN)Clean complete.$(RESET)"
 
 re:				fclean all
