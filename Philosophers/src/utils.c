@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:17:37 by goteixei          #+#    #+#             */
-/*   Updated: 2025/03/07 20:46:41 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/04/09 09:03:55 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,31 @@ void	phi_destory_all(char *str, t_program *program, pthread_mutex_t *forks)
 	}
 }
 
+int phi_error(char *str, t_data *data)
+{
+	printf("%s\n", str);
+	if (data)
+		ft_exit(data);
+	return (1);
+}
+
 /**
  * @brief Improved version of sleep function
  * @param milliseconds
+ * 
+ * usleep param: 500 ms; ms / 10;
  */
 int	phi_usleep(size_t milliseconds)
 {
 	size_t	start;
 
-	start = get_current_time();
-	while ((get_current_time() - start) < milliseconds)
-		usleep(500);
+	start = get_time();
+	while ((get_time() - start) < milliseconds)
+		usleep(milliseconds / 10);
 	return (0);
 }
 
-size_t	phi_get_current_time(void)
+size_t	phi_get_time(void)
 {
 	struct timeval	time;
 
