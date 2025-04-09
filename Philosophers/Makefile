@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/04/09 09:15:20 by goteixei         ###   ########.fr        #
+#    Updated: 2025/04/09 10:29:15 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,9 @@ CFLAGS			+= -I$(INC_DIR)
 # -------------------------------------------------------------
 
 #MANDATORY_SRC	= $(MANDATORY_DIR)main.c
-MANDATORY_SRC	= $(SRC_DIR)threads.c\
-				  $(SRC_DIR)utils.c\
+MANDATORY_SRC	= $(SRC_DIR)utils.c\
+				  $(SRC_DIR)init.c\
+				  $(SRC_DIR)threads.c\
 				  $(SRC_DIR)main.c
 
 # Object files in the same directory as source
@@ -96,7 +97,7 @@ re:				fclean all
 # Rule to use valgrind
 valgrind:		all
 				@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes \
-					--track-origins=yes --trace-children=yes --suppressions=readline.supp ./minishell
+					--track-origins=yes --trace-children=yes --tool=drd --tool=helgrind -fsanitize=thread ./philo
 
 .PHONY:			all clean fclean re valgrind
 

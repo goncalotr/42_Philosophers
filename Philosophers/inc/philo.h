@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/04/09 09:37:53 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/04/09 10:50:42 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 /**************************************************************************
  * SECTION: Libraries
  **************************************************************************/
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 # include <pthread.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <sys/time.h>
-# include <unistd.h>
+
+# include <string.h>
+# include <errno.h>
+# include <limits.h>
+# include <stdbool.h>
 
 /**************************************************************************
  * SECTION: Macros
@@ -77,15 +82,15 @@ typedef struct s_program
  **************************************************************************/
 
 // utils
-int	ft_strlen(char *str);
-int	ft_atoi(char *str);
+int			ft_strlen(char *str);
+int			ft_atol(char *str);
 
-void	phi_destory_all(char *str, t_program *program, pthread_mutex_t *forks);
+void		philo_destory_all(char *str, t_program *program, pthread_mutex_t *forks);
 
-int phi_error(char *str, t_data *data);
+//int phi_error(char *str, t_data *data);
 
-int			phi_usleep(size_t milliseconds);
-size_t		phi_get_time(void);
+int			philo_usleep(size_t milliseconds);
+size_t		philo_get_time(void);
 
 // main
 //int	main(int argc, char **argv);
