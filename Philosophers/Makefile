@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/03/31 11:51:38 by goteixei          #+#    #+#              #
-#    Updated: 2025/03/31 11:55:37 by goteixei         ###   ########.fr        #
+#    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
+#    Updated: 2025/04/15 15:33:48 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,31 +18,36 @@ WHITE			= $(shell printf "\33[37m")
 YELLOW			= $(shell printf "\33[33m")
 BLUE			= $(shell printf "\33[34m")
 
+# --- Symbols / Emojis (requires UTF-8 terminal) ---
+CHECKMARK		= ✅
+CROSSMARK		= ❌
+GEAR			= ⚙️
+FOLDER			= 📁
+SPARKLES		= ✨
+
 # --- Program Name ---
 NAME 			= philo
 
 # Directories
 INC_DIR			= inc/
-#LIB_DIR			= lib/
+LIB_DIR			= lib/
 SRC_DIR			= src/
-
-#LIBFT_DIR		= lib/libft/
-MANDATORY_DIR	= $(SRC_DIR)mandatory/
-
-# Libraries
-LIBFT			= $(LIBFT_DIR)libft.a
 
 # --- Compiler and Flags ---
 CC				= cc
-RM				= rm -f
+RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror -g
-CFLAGS			+= -I$(LIBFT_DIR) -I$(INC_DIR)
+CFLAGS			+= -I$(INC_DIR)
 
 # -------------------------------------------------------------
 # MANDATORY
 # -------------------------------------------------------------
 
-MANDATORY_SRC	= $(MANDATORY_DIR)main.c\
+#MANDATORY_SRC	= $(MANDATORY_DIR)main.c
+MANDATORY_SRC	= $(SRC_DIR)utils.c\
+				  $(SRC_DIR)init.c\
+				  $(SRC_DIR)threads.c\
+				  $(SRC_DIR)main.c
 
 # Object files in the same directory as source
 MANDATORY_OBJ	= $(MANDATORY_SRC:.c=.o)
@@ -54,33 +59,46 @@ MANDATORY_OBJ	= $(MANDATORY_SRC:.c=.o)
 
 all:			$(NAME)
 
-$(NAME):		$(MANDATORY_OBJ) $(LIBFT)
+$(NAME):		$(MANDATORY_OBJ) 
 				@echo "$(YELLOW)Compiling $(NAME) (Mandatory)...$(RESET)"
-#				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) $(LIBFT) -o $(NAME)
-				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) -o $(NAME)
+				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) -o $(NAME) -lreadline
 				@echo "$(GREEN)$(NAME) compiled successfully!$(RESET)"
+				@echo "$(GREEN)+---------------------------------------------+"
+				@echo "|                                             |"
+				@echo "|       $(CHECKMARK) $(NAME) build successful!        |"
+				@echo "|                                             |"
+				@echo "+---------------------------------------------+$(RESET)"
 
-#$(LIBFT):
-#				@echo "$(YELLOW)Compiling $(LIBFT)...$(RESET)"
-#				@$(MAKE) -s -C $(LIBFT_DIR)
-#				@echo "$(GREEN)$(LIBFT) compiled successfully!$(RESET)"
+
+# --- Cleaning Rules ---
 
 clean:
-				@echo "$(YELLOW)Cleaning object files...$(RESET)"
-				$(RM) $(MANDATORY_OBJ)
-#				@$(MAKE) -s -C $(LIBFT_DIR) clean
-				@$(MAKE) -s -C clean
+				@echo "$(YELLOW)Object files cleaning start$(RESET)"
+				@echo "Cleaning project objects..."
+				@$(RM) $(MANDATORY_OBJ)
+#				@echo "Cleaning Libft objects (if possible)..."
+#				@-if [ -d "$(LIBFT_SRC_DIR)" ]; then make -s -C $(LIBFT_SRC_DIR) clean; fi
 				@echo "$(GREEN)Object files cleaned successfully!$(RESET)"
 
 fclean:			clean
-				@echo "$(YELLOW)Cleaning executable files...$(RESET)"
-				$(RM) $(NAME)
-#				@$(MAKE) -s -C $(LIBFT_DIR) fclean
-				@$(MAKE) -s -C fclean
-				@echo "$(GREEN)Executable files cleaned successfully!$(RESET)"
+				@echo "$(YELLOW)Executable files cleaning start$(RESET)"
+				@echo "Cleaning executable $(NAME)..."
+				@$(RM) $(NAME)
+#				@echo "Cleaning Libft library (if possible)..."
+#				@-if [ -d "$(LIBFT_SRC_DIR)" ]; then make -s -C $(LIBFT_SRC_DIR) fclean; fi
+#				@echo "Removing entire Libft repository clone directory $(LIBFT_REPO_DIR)..."
+#				@$(RM) $(LIBFT_REPO_DIR)
+				@echo "$(GREEN)Clean complete.$(RESET)"
 
 re:				fclean all
 
-.PHONY:			all clean fclean re bonus
+# --- Utility Rules ---
+
+# Rule to use valgrind
+valgrind:		all
+				@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes \
+					--track-origins=yes --trace-children=yes --tool=drd --tool=helgrind -fsanitize=thread ./philo
+
+.PHONY:			all clean fclean re valgrind
 
 #.SILENT
