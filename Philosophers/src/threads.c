@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:34:45 by goteixei          #+#    #+#             */
-/*   Updated: 2025/04/09 12:45:57 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/04/18 19:09:40 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*philosopher_routine(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(philo->write_lock)
+	pthread_mutex_lock(philo->write_lock);
 	printf("Philo %d starting routine.\n", philo->id);
 	pthread_mutex_unlock(philo->write_lock);
 	while (1)

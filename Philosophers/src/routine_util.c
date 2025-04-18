@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*   routine_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/31 12:04:15 by goteixei          #+#    #+#             */
-/*   Updated: 2025/03/31 18:31:39 by goteixei         ###   ########.fr       */
+/*   Created: 2025/04/18 19:10:31 by goteixei          #+#    #+#             */
+/*   Updated: 2025/04/18 19:15:53 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ph_clear_data(t_philo *data)
+#include "../inc/philo.h"
+
+int	philo_simulation_over(t_philo *philo)
 {
-
-}
-
-void	ph_clear_data(t_philo *data)
-{
-
-}
-
-void	ph_exit(t_philo *data)
-{
-
-}
-
-get_time(void)
-{
-
-}
-
-ft_usleep
-{
-
+	int	result;
+	
+	pthread_mutex_lock(philo->dead_lock);
+	result = *(philo->dead);
+	pthread_mutex_unlock(philo->dead_lock);
+	return (result);
 }
