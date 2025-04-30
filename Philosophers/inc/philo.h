@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/04/15 15:34:04 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/01 00:06:26 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,38 +50,41 @@ struct s_program;
 
 // philo struct
 // args; individual state; other
+// 1 on true
+// 0 off false
 typedef struct s_philo
 {
-	size_t			num_of_philos;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
-	long			num_times_to_eat;
-	pthread_t		thread;
-	int				id;
-	int				eating;
-	size_t			meals_eaten;
-	size_t			start_time;
-	size_t			last_meal_time;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*write_lock;
-	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t	*meal_lock;
-	int				*dead_flag;
+	size_t				num_of_philos;
+	size_t				time_to_die;
+	size_t				time_to_eat;
+	size_t				time_to_sleep;
+	long				num_times_to_eat;
+	pthread_t			thread;
+	int					id;
+	int					eating;
+	size_t				meals_eaten;
+	size_t				start_time;
+	size_t				last_meal_time;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		*write_lock;
+	pthread_mutex_t		*dead_lock;
+	pthread_mutex_t		*meal_lock;
+	int					*dead_flag;
 	struct s_program	*program;
+	int					dead;
 }	t_philo;
 
 typedef struct s_program
 {
-	int				dead_flag;
-	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	write_lock;
-	int				num_of_philos;
-	long			num_times_to_eat;
-	char			**argv;
-	t_philo			*philos;
+	int					dead_flag;
+	pthread_mutex_t		dead_lock;
+	pthread_mutex_t		meal_lock;
+	pthread_mutex_t		write_lock;
+	int					num_of_philos;
+	long				num_times_to_eat;
+	char				**argv;
+	t_philo				*philos;
 }	t_program;
 
 /**************************************************************************

@@ -6,37 +6,28 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:47:58 by goteixei          #+#    #+#             */
-/*   Updated: 2025/04/18 19:13:31 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/01 00:12:38 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	philo_eat(t_philo *philo)
+/**
+ * @brief The main function executed by each philosopher thread.
+ *        Manages the eat-sleep-think lifecycle.
+ * @param arg A void pointer to the philosopher's t_philo structure.
+ * @return void* Always returns NULL.
+ */
+void	*philo_routine(void *arg)
 {
-	printf("is eating");
+	t_philo	*philo;
 
+	philo = (t_philo *)arg;
+	if (philo->id % 2 != 0)
+		ft_usleep(1);
+	while (!philo_is_sim_over(philo))
+	{
+		
+	}
+	return (NULL);
 }
-
-void	philo_think(t_philo *philo)
-{
-	//todo
-	printf("is thinking");
-}
-
-void	philo_sleep(t_philo *philo)
-{
-	//todo 
-	printf("is sleeping");
-	ft_usleep(philo->time_to_sleep);
-}
-
-void	philo_eat(t_philo *philo)
-{
-	pthread_mutex_lock(philo->right_fork);
-
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
-}
-
-
