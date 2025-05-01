@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/01 00:06:26 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/01 01:30:35 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,31 @@ int			ft_atol(char *str);
 
 void		philo_destroy_all(char *str, t_program *program, pthread_mutex_t *forks);
 
-int	philo_error_msg(char *str);
-//int phi_error(char *str, t_data *data);
+int			philo_error_msg(char *str);
+//int		phi_error(char *str, t_data *data);
 
-int			philo_usleep(size_t milliseconds);
-size_t		philo_get_time(void);
+int		philo_usleep(size_t milliseconds);
+size_t	philo_get_time(void);
 
 // --- init.c ---
-int			philo_check_valid_args(int argc, char **argv);
-int			philo_init_program(t_program *program, t_philo *philos, int argc, char **argv);
-int			philo_init_forks(pthread_mutex_t *forks, int num_philosophers);
-int			philo_init_philos(t_program *program, pthread_mutex_t *forks);
+int		philo_check_valid_args(int argc, char **argv);
+int		philo_init_program(t_program *program, t_philo *philos, int argc, char **argv);
+int		philo_init_forks(pthread_mutex_t *forks, int num_philosophers);
+int		philo_init_philos(t_program *program, pthread_mutex_t *forks);
 
 // --- threads.c ---
-int			philo_thread_create(t_program *program, pthread_mutex_t *forks);
+int		philo_thread_create(t_program *program, pthread_mutex_t *forks);
+
+// --- actions.c ---
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
+
+// --- routine_utils.c ---
+int		philo_is_sim_over(t_philo *data);
+
+// --- routine.c ---
+void	*philo_routine(void *arg);
 
 // main
 //int	main(int argc, char **argv);

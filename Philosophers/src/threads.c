@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:34:45 by goteixei          #+#    #+#             */
-/*   Updated: 2025/04/18 19:09:40 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/01 01:44:23 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
  * eat, sleep, think, check death...
  * 
 */
+/*
 void	*philosopher_routine(void *arg)
 {
 	t_philo *philo;
@@ -40,11 +41,13 @@ void	*philosopher_routine(void *arg)
 	pthread_mutex_unlock(philo->write_lock);
 	return (NULL);
 }
-
+*/
+/*
 void	*monitor_routine(void *arg)
 {
 
 }
+*/
 
 /**
  * @brief Creates and launches philosopher threads and the monitor thread.
@@ -57,6 +60,7 @@ void	*monitor_routine(void *arg)
  * 2 Minitor threads
  * 3 Join threads (wait for completion)
  */
+/*
 int	philo_thread_create(t_program *program, pthread_mutex_t *forks)
 {
 	pthread_t	monitor_thread;
@@ -95,3 +99,4 @@ int	philo_thread_create(t_program *program, pthread_mutex_t *forks)
 	}
 	return (0);
 }
+*/
