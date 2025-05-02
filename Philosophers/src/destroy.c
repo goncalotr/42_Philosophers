@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:09:50 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 13:23:17 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:32:27 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ void	philo_destroy_all(const char *msg, t_program *program, \
 	}
 	if (program)
 	{
-		destroy_shared_mutexes(program);
+		philo_destroy_shared_mutexes(program);
 		if (program->philos)
 			free(program->philos);
 	}
 	if (program && program->num_of_philos > 0)
-		destroy_fork_mutexes(program, forks);
+		philo_destroy_fork_mutexes(program, forks);
 	else if (forks)
 		free(forks);
 }
