@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/01 01:30:35 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:42:37 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_philo
 	pthread_mutex_t		*meal_lock;
 	int					*dead_flag;
 	struct s_program	*program;
-	int					dead;
 }	t_philo;
 
 typedef struct s_program
@@ -91,17 +90,45 @@ typedef struct s_program
  * SECTION: Functions
  **************************************************************************/
 
+// --- routine.c ---
+void	*philo_routine(void *arg);
+
+// --- routine_utils.c ---
+int		philo_is_sim_over(t_philo *philo);
+void	philo_log_state(t_philo *philo, const char *state_msg);
+
+// --- forks.c ---
+void	philo_release_forks(t_philo *philo);
+void	philo_take_forks_ordered(t_philo *philo);
+
+// --- actions.c ---
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
+
+// --- utils.c ---
+int		philo_usleep(size_t milliseconds);
+size_t	philo_get_time(void);
+int		philo_error_msg(char *str);
+
+// --- main.c ---
+//int		main(int argc, char **argv);
+
+
+
+
+
+
+/*
 // --- utils.c ---
 int			ft_strlen(char *str);
 int			ft_atol(char *str);
 
 void		philo_destroy_all(char *str, t_program *program, pthread_mutex_t *forks);
 
-int			philo_error_msg(char *str);
 //int		phi_error(char *str, t_data *data);
 
-int		philo_usleep(size_t milliseconds);
-size_t	philo_get_time(void);
+
 
 // --- init.c ---
 int		philo_check_valid_args(int argc, char **argv);
@@ -126,4 +153,6 @@ void	*philo_routine(void *arg);
 // main
 //int	main(int argc, char **argv);
 
+
+*/
 #endif

@@ -6,12 +6,13 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:17:37 by goteixei          #+#    #+#             */
-/*   Updated: 2025/04/09 12:30:53 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:43:07 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
+/*
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -54,22 +55,14 @@ int	ft_atol(char *str)
 	return (sign * number);
 }
 
-int	philo_error_msg(char *str)
-{
-	write(2, "Error: ", 7);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
-	return (1);
-}
 
+*/
 /*
  * @brief Destroys mutexes. Can be called on error or successful exit.
  * @param err_msg If not NULL, prints this error message first.
  * @param program Pointer to the program struct.
- * @param forks Pointer to the forks mutex array.
- */
-void	philo_destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
-{
+ * @parint	philo_usleep(size_t time_ms)
+
 	int	i;
 
 	i = 0;
@@ -91,7 +84,7 @@ void	philo_destroy_all(char *str, t_program *program, pthread_mutex_t *forks)
 		}
 	}
 }
-
+*/
 /*
 int phi_error(char *str, t_data *data)
 {
@@ -149,4 +142,12 @@ void	philo_print_status(t_philo *philo, char *status_msg, int unlock_write)
 		pthread_mutex_unlock(&philo->program->write_lock);
 	else
 		pthread_mutex_unlock(&philo->program->write_lock);
+}
+
+int	philo_error_msg(char *str)
+{
+	write(2, "Error: ", 7);
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
+	return (1);
 }
