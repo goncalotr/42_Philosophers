@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 13:59:42 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:28:57 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,11 @@ int		philo_init_philos(t_program *program, pthread_mutex_t *forks);
 // --- destroy.c ---
 void	philo_destroy_all(const char *msg, t_program *program, pthread_mutex_t *forks);
 
-// --- utils.c ---
+// --- time.c ---
 int		philo_usleep(size_t milliseconds);
 size_t	philo_get_time(void);
+
+// --- utils.c ---
 int		philo_error_msg(char *str);
 int		ft_strlen(char *str);
 int		ft_atol(char *str);
