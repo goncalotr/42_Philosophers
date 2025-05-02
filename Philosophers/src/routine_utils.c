@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 19:10:31 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 10:58:26 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:45:47 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	philo_is_sim_over(t_philo *data)
 	int	result;
 
 	pthread_mutex_lock(data->dead_lock);
-	result = data->dead;
+	result = *(data->dead_flag);
 	pthread_mutex_unlock(data->dead_lock);
 	return (result);
 }

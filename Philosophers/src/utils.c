@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:17:37 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 13:07:19 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:05:17 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,46 +67,4 @@ int	philo_error_msg(char *str)
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 	return (1);
-}
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	if (str == NULL)
-		return (0);
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-int	ft_atol(char *str)
-{
-	long int	number;
-	int			sign;
-	int			i;
-
-	number = 0;
-	sign = 1;
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '-')
-		sign = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (str[i] < '0' || str[i] > '9')
-		return (-1);
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		if (number > (LONG_MAX - (str[i] - '0')) / 10)
-			return (-1);
-		number = number * 10 + (str[i] - '0');
-		i++;
-	}
-	if (str[i] != '\0')
-		return (-1);
-	return (sign * number);
 }

@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/05/02 13:25:08 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/02 14:03:25 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ all:			$(NAME)
 
 $(NAME):		$(MANDATORY_OBJ) 
 				@echo "$(YELLOW)Compiling $(NAME) (Mandatory)...$(RESET)"
-				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) -o $(NAME) -lreadline
+				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) -o $(NAME)
 				@echo "$(GREEN)$(NAME) compiled successfully!$(RESET)"
 				@echo "$(GREEN)+---------------------------------------------+"
 				@echo "|                                             |"

@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 13:26:27 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:59:42 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_program
 	int					num_of_philos;
 	long				num_times_to_eat;
 	char				**argv;
+
 	t_philo				*philos;
 }	t_program;
 
@@ -99,6 +100,11 @@ void	*philo_routine(void *arg);
 int		philo_is_sim_over(t_philo *philo);
 void	philo_log_state(t_philo *philo, const char *state_msg);
 
+// --- actions.c ---
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
+
 // --- monitor.c ---
 void	philo_monitor_sim(t_program *program);
 
@@ -106,10 +112,8 @@ void	philo_monitor_sim(t_program *program);
 void	philo_release_forks(t_philo *philo);
 void	philo_take_forks_ordered(t_philo *philo);
 
-// --- actions.c ---
-void	philo_eat(t_philo *philo);
-void	philo_sleep(t_philo *philo);
-void	philo_think(t_philo *philo);
+// --- threads.c ---
+int		philo_thread_create(t_program *program, pthread_mutex_t *forks);
 
 // Auxiliary functions
 
