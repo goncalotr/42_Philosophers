@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 13:36:37 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:39:41 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ static int	philo_handle_death(t_program *program, int philo_index)
 }
 
 /**
- * Checks if all philosophers have eaten enough times (if required).
+ * Checks if all philosophers have eaten enough times.
  * Returns 1 if all have eaten enough, 0 otherwise. Assumes meal_lock held.
  * 
  * Assumes meal_lock is ALREADY HELD by caller
  * And program->num_times_to_eat has already been checked to be > -1
  */
+/*
 static int	philo_check_all_ate(t_program *program)
 {
 	int		i;
@@ -70,6 +71,7 @@ static int	philo_check_all_ate(t_program *program)
 	}
 	return (all_finished_eating);
 }
+*/
 
 /**
  * @brief Checks death and meal completion for all philosophers for one cycle.
@@ -78,7 +80,7 @@ static int	philo_check_all_ate(t_program *program)
  * @param all_ate_flag Pointer to flag indicating if meal goal met this cycle.
  * @return int Returns 1 if the simulation should stop, 0 otherwise.
  */
-static int	check_stop_conditions(t_program *program, int *all_ate_flag)
+static int	philo_check_stop_conditions(t_program *program, int *all_ate_flag)
 {
 	int	i;
 
@@ -87,10 +89,10 @@ static int	check_stop_conditions(t_program *program, int *all_ate_flag)
 	while (i < program->num_of_philos)
 	{
 		pthread_mutex_lock(&program->meal_lock);
-		if (check_philo_death(&program->philos[i]))
+		if (philo_check_death(&program->philos[i]))
 		{
 			pthread_mutex_unlock(&program->meal_lock);
-			return (handle_death(program, i));
+			return (philo_handle_death(program, i));
 		}
 		if (program->num_times_to_eat != -1 && \
 			program->philos[i].meals_eaten < (size_t)program->num_times_to_eat)
@@ -131,6 +133,6 @@ void philo_monitor_sim(t_program *program)
 	{
 		stop_monitoring = philo_check_stop_conditions(program, &all_ate_status);
 		if (!stop_monitoring)
-			ft_usleep(1); 
+			philo_usleep(1); 
 	}
 }
