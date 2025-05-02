@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:09:50 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 18:02:26 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:22:16 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 /**
  * Helper function to destroy fork mutexes.
  * Destroy mutexes one by one
+ * 
+ * don't free forks because
+ * the forks array was allocated on the stack in main
  */
 static void	philo_destroy_fork_mutexes(t_program *program, \
 		pthread_mutex_t *forks)
@@ -29,7 +32,6 @@ static void	philo_destroy_fork_mutexes(t_program *program, \
 		pthread_mutex_destroy(&forks[i]);
 		i++;
 	}
-	free(forks);
 }
 
 /**
