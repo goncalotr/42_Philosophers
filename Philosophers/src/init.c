@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/04/09 11:48:37 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:27:07 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	philo_check_valid_args(int argc, char **argv)
 int	philo_init_program(t_program *program, t_philo *philos, int argc, char **argv)
 {
 	program->philos = philos;
-	program->dead_flag = 0;
+	program->argv = argv; 
+	program->dead_flag = 0;	
 	program->num_of_philos = ft_atol(argv[1]);
 	program->num_times_to_eat = -1;
 	if (argc == 6)
@@ -119,9 +120,9 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 		program->philos[i].eating = 0;
 		program->philos[i].meals_eaten = 0;
 		program->philos[i].num_of_philos = program->num_of_philos;
-		program->philos[i].time_to_die = (size_t)ft_atol(program->philos->program->argv[2]);
-		program->philos[i].time_to_eat = (size_t)ft_atol(program->philos->program->argv[3]);
-		program->philos[i].time_to_sleep = (size_t)ft_atol(program->philos->program->argv[4]);
+		program->philos[i].time_to_die = (size_t)ft_atol(program->argv[2]);
+		program->philos[i].time_to_eat = (size_t)ft_atol(program->argv[3]);
+		program->philos[i].time_to_sleep = (size_t)ft_atol(program->argv[4]);
 		program->philos[i].num_times_to_eat = program->num_times_to_eat;
 		program->philos[i].start_time = start_time;
 		program->philos[i].last_meal_time = start_time;
