@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 12:42:37 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:56:48 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void	philo_think(t_philo *philo);
 int		philo_usleep(size_t milliseconds);
 size_t	philo_get_time(void);
 int		philo_error_msg(char *str);
+int		ft_strlen(char *str);
+int		ft_atol(char *str);
 
 // --- main.c ---
 //int		main(int argc, char **argv);
@@ -121,8 +123,6 @@ int		philo_error_msg(char *str);
 
 /*
 // --- utils.c ---
-int			ft_strlen(char *str);
-int			ft_atol(char *str);
 
 void		philo_destroy_all(char *str, t_program *program, pthread_mutex_t *forks);
 

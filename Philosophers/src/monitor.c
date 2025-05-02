@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 12:42:15 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:55:49 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ static int	handle_death(t_program *program, int philo_index)
 }
 
 /* Checks if all philosophers ate enough. Assumes meal_lock held. */
+	// Assumes meal_lock is ALREADY HELD by caller
+	// Assumes program->num_times_to_eat != -1 check done by caller
 static int	check_all_ate(t_program *program)
 {
 	int		i;
 	int		all_finished_eating;
 
-	// Assumes meal_lock is ALREADY HELD by caller
-	// Assumes program->num_times_to_eat != -1 check done by caller
 	i = 0;
 	all_finished_eating = 1;
 	while (i < program->num_of_philos)

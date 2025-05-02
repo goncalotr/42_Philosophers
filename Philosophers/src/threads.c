@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:34:45 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 12:00:46 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:57:39 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int philo_thread_create(t_program *program, pthread_mutex_t *forks)
 	int	j;
 	(void)forks;
 
-	i = 0;
+	j = 0;
 	program->start_time = philo_get_time();
 	while (j < program->num_of_philos)
 	{
