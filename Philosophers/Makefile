@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/05/02 14:03:25 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/02 14:07:12 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ MANDATORY_SRC	= $(SRC_DIR)init.c\
 				  $(SRC_DIR)threads.c\
 				  $(SRC_DIR)time.c\
 				  $(SRC_DIR)utils.c\
+				  $(SRC_DIR)utils_libft.c\
 				  $(SRC_DIR)main.c
 
 # Object files in the same directory as source
