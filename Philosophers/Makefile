@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/05/02 14:07:12 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/02 17:15:12 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,21 @@ SRC_DIR			= src/
 # --- Compiler and Flags ---
 CC				= cc
 RM				= rm -rf
+
+# Sanitizer Flags
+SAN_FLAGS		= -fsanitize=address
+SAN_FLAGS		+= -fsanitize=leak
+SAN_FLAGS		+= -fsanitize=undefined
+SAN_FLAGS		+= -fno-omit-frame-pointer
+
+# Linker Flags
+LDFLAGS			= $(SAN_FLAGS)
+LDFLAGS        += -lpthread
+
+# Compiler Flags
 CFLAGS			= -Wall -Wextra -Werror -g
 CFLAGS			+= -I$(INC_DIR)
+CFLAGS			+= $(SAN_FLAGS)
 
 # -------------------------------------------------------------
 # MANDATORY
@@ -106,6 +119,41 @@ re:				fclean all
 valgrind:		all
 				@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes \
 					--track-origins=yes --trace-children=yes --tool=drd --tool=helgrind -fsanitize=thread ./philo
+
+# Rule for Valgrind Memory Checks (Memcheck)
+memcheck: all
+	@echo "--- Running Valgrind Memcheck ---"
+	@valgrind --leak-check=full \
+			  --show-leak-kinds=all \
+			  --track-origins=yes \
+			  --log-file=valgrind-memcheck.log \
+			  ./$(NAME) $(ARGS)
+
+# Rule for Valgrind Threading Checks (Helgrind)
+# Helgrind is often preferred over DRD for pthreads issues
+helgrind: all
+	@echo "--- Running Valgrind Helgrind ---"
+	@valgrind --tool=helgrind \
+			  --log-file=valgrind-helgrind.log \
+			  ./$(NAME) $(ARGS)
+
+# Rule for Valgrind Threading Checks (DRD)
+# Alternative to Helgrind
+drd: all
+	@echo "--- Running Valgrind DRD ---"
+	@valgrind --tool=drd \
+			  --log-file=valgrind-drd.log \
+			  ./$(NAME) $(ARGS)
+
+# San
+tsan_build: fclean 
+	@$(MAKE) CFLAGS="$(filter-out -fsanitize=address -fsanitize=leak -fsanitize=undefined, $(CFLAGS)) $(TSAN_FLAGS)" \
+			 LDFLAGS="$(filter-out -fsanitize=address -fsanitize=leak -fsanitize=undefined, $(LDFLAGS)) $(TSAN_FLAGS)" \
+			 all
+
+run_tsan: tsan_build
+	@echo "--- Running TSan-instrumented build ---"
+#	@./$(NAME) $(ARGS)
 
 .PHONY:			all clean fclean re valgrind
 
