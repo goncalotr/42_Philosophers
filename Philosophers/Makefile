@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/04/15 15:33:48 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/02 13:25:08 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,16 @@ CFLAGS			+= -I$(INC_DIR)
 # -------------------------------------------------------------
 
 #MANDATORY_SRC	= $(MANDATORY_DIR)main.c
-MANDATORY_SRC	= $(SRC_DIR)utils.c\
-				  $(SRC_DIR)init.c\
+MANDATORY_SRC	= $(SRC_DIR)init.c\
+				  $(SRC_DIR)actions.c\
+				  $(SRC_DIR)destroy.c\
+				  $(SRC_DIR)forks.c\
+				  $(SRC_DIR)monitor.c\
+				  $(SRC_DIR)routine.c\
+				  $(SRC_DIR)routine_utils.c\
 				  $(SRC_DIR)threads.c\
+				  $(SRC_DIR)time.c\
+				  $(SRC_DIR)utils.c\
 				  $(SRC_DIR)main.c
 
 # Object files in the same directory as source

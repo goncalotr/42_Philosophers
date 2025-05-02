@@ -6,49 +6,11 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:17:37 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 12:57:12 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:07:19 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
-/*
- * @brief Destroys mutexes. Can be called on error or successful exit.
- * @param err_msg If not NULL, prints this error message first.
- * @param program Pointer to the program struct.
- * @parint	philo_usleep(size_t time_ms)
-
-	int	i;
-
-	i = 0;
-	if (str)
-		philo_error_msg(str);
-	if (program)
-	{
-		pthread_mutex_destroy(&program->write_lock);
-		pthread_mutex_destroy(&program->meal_lock);
-		pthread_mutex_destroy(&program->dead_lock);
-	}
-	if (forks && program && program->num_of_philos > 0)
-	{
-		i = 0;
-		while (i < program->num_of_philos)
-		{
-			pthread_mutex_destroy(&forks[i]);
-			i++;
-		}
-	}
-}
-*/
-/*
-int phi_error(char *str, t_data *data)
-{
-	printf("%s\n", str);
-	if (data)
-		ft_exit(data);
-	return (1);
-}
-*/
 
 /**
  * @brief Improved version of sleep function

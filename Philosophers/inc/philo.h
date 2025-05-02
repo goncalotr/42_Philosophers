@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 12:56:48 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:26:27 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,17 @@ typedef struct s_program
  * SECTION: Functions
  **************************************************************************/
 
+// Program task specific functions
+
 // --- routine.c ---
 void	*philo_routine(void *arg);
 
 // --- routine_utils.c ---
 int		philo_is_sim_over(t_philo *philo);
 void	philo_log_state(t_philo *philo, const char *state_msg);
+
+// --- monitor.c ---
+void	philo_monitor_sim(t_program *program);
 
 // --- forks.c ---
 void	philo_release_forks(t_philo *philo);
@@ -106,29 +111,7 @@ void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
 
-// --- utils.c ---
-int		philo_usleep(size_t milliseconds);
-size_t	philo_get_time(void);
-int		philo_error_msg(char *str);
-int		ft_strlen(char *str);
-int		ft_atol(char *str);
-
-// --- main.c ---
-//int		main(int argc, char **argv);
-
-
-
-
-
-
-/*
-// --- utils.c ---
-
-void		philo_destroy_all(char *str, t_program *program, pthread_mutex_t *forks);
-
-//int		phi_error(char *str, t_data *data);
-
-
+// Auxiliary functions
 
 // --- init.c ---
 int		philo_check_valid_args(int argc, char **argv);
@@ -136,23 +119,19 @@ int		philo_init_program(t_program *program, t_philo *philos, int argc, char **ar
 int		philo_init_forks(pthread_mutex_t *forks, int num_philosophers);
 int		philo_init_philos(t_program *program, pthread_mutex_t *forks);
 
-// --- threads.c ---
-int		philo_thread_create(t_program *program, pthread_mutex_t *forks);
+// --- destroy.c ---
+void	philo_destroy_all(const char *msg, t_program *program, pthread_mutex_t *forks);
 
-// --- actions.c ---
-void	philo_eat(t_philo *philo);
-void	philo_sleep(t_philo *philo);
-void	philo_think(t_philo *philo);
+// --- utils.c ---
+int		philo_usleep(size_t milliseconds);
+size_t	philo_get_time(void);
+int		philo_error_msg(char *str);
+int		ft_strlen(char *str);
+int		ft_atol(char *str);
 
-// --- routine_utils.c ---
-int		philo_is_sim_over(t_philo *data);
+// Other functions
 
-// --- routine.c ---
-void	*philo_routine(void *arg);
+// --- main.c ---
+//int		main(int argc, char **argv);
 
-// main
-//int	main(int argc, char **argv);
-
-
-*/
 #endif
