@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 17:27:07 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:39:23 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,10 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 		program->philos[i].start_time = start_time;
 		program->philos[i].last_meal_time = start_time;
 		program->philos[i].program = program;
+		program->philos[i].write_lock = &program->write_lock;
+		program->philos[i].dead_lock = &program->dead_lock;
+		program->philos[i].meal_lock = &program->meal_lock;
+		program->philos[i].dead_flag = &program->dead_flag;
 		program->philos[i].left_fork = &forks[i];
 		program->philos[i].right_fork = &forks[(i + 1) % program->num_of_philos];
 		if (program->philos[i].id % 2 == 0)
