@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:43:40 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 13:32:08 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:37:20 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	philo_eat(t_philo *philo)
 	philo->last_meal_time = philo_get_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->meal_lock);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 	philo_usleep(philo->time_to_eat);
 	philo_release_forks(philo);
 }
