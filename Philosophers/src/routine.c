@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:47:58 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 13:40:25 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:48:36 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	*philo_routine(void *arg)
 		philo_take_forks_ordered(philo);
 		if (philo_is_sim_over(philo) || philo->num_of_philos == 1)
 		{
+			philo_release_forks(philo);
 			break ;
 		}
 		philo_eat(philo);
