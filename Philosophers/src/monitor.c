@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 13:39:41 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/03 17:29:10 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	philo_check_death(t_philo *philo)
 static int	philo_handle_death(t_program *program, int philo_index)
 {
 	pthread_mutex_lock(&program->dead_lock);
+	/*
 	if (!program->dead_flag)
 	{
 		program->dead_flag = 1;
@@ -42,6 +43,18 @@ static int	philo_handle_death(t_program *program, int philo_index)
 	{
 		pthread_mutex_unlock(&program->dead_lock);
 	}
+	*/
+	if (program->dead_flag)
+	{
+		pthread_mutex_unlock(&program->dead_lock);
+		return (1);
+	}
+	program->dead_flag = 1;
+	pthread_mutex_lock(&program->write_lock);
+	size_t timestamp_ms = philo_get_time() - program->philos[philo_index].start_time;
+	printf("%zu %d died\n", timestamp_ms, program->philos[philo_index].id);
+	pthread_mutex_unlock(&program->write_lock);
+	pthread_mutex_unlock(&program->dead_lock);
 	return (1);
 }
 
