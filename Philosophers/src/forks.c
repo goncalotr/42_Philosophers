@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 18:42:47 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/03 16:46:15 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void	philo_release_forks(t_philo *philo)
  *        locking strategy (odd/even ID) to prevent deadlock.
  *        Handles the single philosopher case.
  * @param philo Pointer to the philosopher's structure.
+ * 
+ * Even IDs take the right fork first
+ * Odd IDs take the left fork first
  */
 void	philo_take_forks_ordered(t_philo *philo)
 {
@@ -45,6 +48,7 @@ void	philo_take_forks_ordered(t_philo *philo)
 		second_fork = philo->right_fork;
 	}
 	pthread_mutex_lock(first_fork);
+	philo_log_state(philo, "has taken a fork");
 	if (philo_is_sim_over(philo))
 	{
 		pthread_mutex_unlock(first_fork);
