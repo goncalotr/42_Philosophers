@@ -9,7 +9,9 @@ Test with various inputs:
 
 ### Simple Scenarios
 
+### Wrong Usage
 
+### Edge Cases
 
 ## Leak Testing
 
