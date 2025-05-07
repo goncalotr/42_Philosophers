@@ -48,7 +48,9 @@ Run the program:
 
 ## Reference
 
-[Youtube: Code Vault](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
+[Youtube: Unix Threads in C - Code Vault](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
+
+[GitHub: 42-Philosophers - MarkusComK](https://github.com/MarkosComK/42-Philosophers/tree/main)
 
 ## Other
 
