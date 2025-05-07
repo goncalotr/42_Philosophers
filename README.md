@@ -46,8 +46,6 @@ Run the program:
 
 - `number_of_times_each_philosopher_must_eat` **(optional)**: Simulation ends when all philosophers have eaten this many times.
 
-## Reference
-
 ## Other
 
 - This project follows the code style required by norminette.

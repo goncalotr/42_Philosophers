@@ -7,6 +7,10 @@ Test with various inputs:
 - Edge cases: 1 800 200 200, 2 100 10 10, 4 310 200 100 (potential death)
 - Large numbers (within reason): 200 800 200 200
 
+### Simple Scenarios
+
+
+
 ## Leak Testing
 
 Valgrind and sanitize
