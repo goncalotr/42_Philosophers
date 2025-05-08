@@ -29,14 +29,22 @@ Limitations
  ./philo 5 800 200 200 7
 ```
 
+- Description:
+- Expected Behavior:
+
 ```bash
 ./philo 4 410 200 200
 ```
+
+- Description:
+- Expected Behavior:
 
 ```bash
 ./philo 4 310 200 100
 ```
 
+- Description:
+- Expected Behavior:
 
 ### Bad Usage
 
