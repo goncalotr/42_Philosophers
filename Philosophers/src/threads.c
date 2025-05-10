@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:34:45 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 17:42:31 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/10 17:35:31 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,9 @@ static int	philo_join_thread_loop(t_program *program)
  * Joining
  * Return failure or success
  */
-int philo_thread_create(t_program *program, pthread_mutex_t *forks)
+int	philo_thread_create(t_program *program, pthread_mutex_t *forks)
 {
 	(void)forks;
-
 	if (philo_create_threads_loop(program) != 0)
 	{
 		philo_destroy_all("Error creating threads", program, forks);

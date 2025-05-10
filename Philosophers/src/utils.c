@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:17:37 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 18:28:07 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/10 17:38:03 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	philo_print_status(t_philo *philo, char *status_msg, int unlock_write)
 {
 	size_t	time_ms;
 
-	pthread_mutex_lock(&philo->program->write_lock); 
+	pthread_mutex_lock(&philo->program->write_lock);
 	pthread_mutex_lock(&philo->program->dead_lock);
 	if (!philo->program->dead_flag)
 	{

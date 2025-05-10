@@ -6,14 +6,15 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:43:40 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/03 16:57:04 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/10 17:38:50 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
 /**
- * @brief Performs the eating action: logs, updates state, delays, releases forks.
+ * @brief Performs the eating action: logs, updates state, delays, 
+ * releases forks.
  * @param philo Pointer to the philosopher's structure.
  */
 void	philo_eat(t_philo *philo)

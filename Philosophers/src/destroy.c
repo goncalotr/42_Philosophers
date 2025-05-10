@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:09:50 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 18:22:16 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/10 17:34:50 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	philo_destroy_all(const char *msg, t_program *program, \
 	{
 		printf("Error: %s\n", msg);
 	}
-	if (!program) return; 
+	if (!program) return;
 		num_philos = program->num_of_philos;
 	if (forks)
 	{
