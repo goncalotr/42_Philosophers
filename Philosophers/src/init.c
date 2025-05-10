@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 17:39:23 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:47:59 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	philo_check_valid_args(int argc, char **argv)
 		if (temp_val > INT_MAX)
 			return (philo_error_msg("Argument value too large."));
 		if (i == 1 && temp_val > PHILO_MAX)
-			return (philo_error_msg("Number of philosophers exceeds PHILO_MAX."));
+			return \
+				(philo_error_msg("Number of philosophers exceeds PHILO_MAX."));
 		i++;
 	}
 	return (0);
@@ -47,11 +48,12 @@ int	philo_check_valid_args(int argc, char **argv)
  * 
  * num_times_to_eat = -1 -> default: no meal limit
  */
-int	philo_init_program(t_program *program, t_philo *philos, int argc, char **argv)
+int	philo_init_program(t_program *program, t_philo *philos, \
+		int argc, char **argv)
 {
 	program->philos = philos;
-	program->argv = argv; 
-	program->dead_flag = 0;	
+	program->argv = argv;
+	program->dead_flag = 0;
 	program->num_of_philos = ft_atol(argv[1]);
 	program->num_times_to_eat = -1;
 	if (argc == 6)
@@ -132,10 +134,12 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 		program->philos[i].meal_lock = &program->meal_lock;
 		program->philos[i].dead_flag = &program->dead_flag;
 		program->philos[i].left_fork = &forks[i];
-		program->philos[i].right_fork = &forks[(i + 1) % program->num_of_philos];
+		program->philos[i].right_fork = &forks[(i + 1) \
+			% program->num_of_philos];
 		if (program->philos[i].id % 2 == 0)
 		{
-			program->philos[i].left_fork = &forks[(i + 1) % program->num_of_philos];
+			program->philos[i].left_fork = \
+				&forks[(i + 1) % program->num_of_philos];
 			program->philos[i].right_fork = &forks[i];
 		}
 		i++;

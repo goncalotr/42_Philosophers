@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/03 17:29:10 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:53:16 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	philo_check_death(t_philo *philo)
 	{
 		return (1);
 	}
-	return (0);	
+	return (0);
 }
 
 /**
@@ -31,6 +31,8 @@ static int	philo_check_death(t_philo *philo)
  */
 static int	philo_handle_death(t_program *program, int philo_index)
 {
+	size_t	timestamp_ms;
+
 	pthread_mutex_lock(&program->dead_lock);
 	/*
 	if (!program->dead_flag)
@@ -51,7 +53,7 @@ static int	philo_handle_death(t_program *program, int philo_index)
 	}
 	program->dead_flag = 1;
 	pthread_mutex_lock(&program->write_lock);
-	size_t timestamp_ms = philo_get_time() - program->philos[philo_index].start_time;
+	timestamp_ms = philo_get_time() - program->philos[philo_index].start_time;
 	printf("%zu %d died\n", timestamp_ms, program->philos[philo_index].id);
 	pthread_mutex_unlock(&program->write_lock);
 	pthread_mutex_unlock(&program->dead_lock);
@@ -136,7 +138,7 @@ static int	philo_check_stop_conditions(t_program *program, int *all_ate_flag)
  * All Ate Condition Met (after unlock)
  * dead check to prevent race
  */
-void philo_monitor_sim(t_program *program)
+void	philo_monitor_sim(t_program *program)
 {
 	int	stop_monitoring;
 	int	all_ate_status;
@@ -146,6 +148,6 @@ void philo_monitor_sim(t_program *program)
 	{
 		stop_monitoring = philo_check_stop_conditions(program, &all_ate_status);
 		if (!stop_monitoring)
-			philo_usleep(1); 
+			philo_usleep(1);
 	}
 }

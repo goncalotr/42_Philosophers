@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 18:28:57 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/10 16:44:08 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
  * SECTION: Structs
  **************************************************************************/
 
-struct s_program;
+struct	s_program;
 
 // philo struct
 // args; individual state; other
@@ -119,12 +119,14 @@ int		philo_thread_create(t_program *program, pthread_mutex_t *forks);
 
 // --- init.c ---
 int		philo_check_valid_args(int argc, char **argv);
-int		philo_init_program(t_program *program, t_philo *philos, int argc, char **argv);
+int		philo_init_program(t_program *program, t_philo *philos, \
+			int argc, char **argv);
 int		philo_init_forks(pthread_mutex_t *forks, int num_philosophers);
 int		philo_init_philos(t_program *program, pthread_mutex_t *forks);
 
 // --- destroy.c ---
-void	philo_destroy_all(const char *msg, t_program *program, pthread_mutex_t *forks);
+void	philo_destroy_all(const char *msg, t_program *program, \
+			pthread_mutex_t *forks);
 
 // --- time.c ---
 int		philo_usleep(size_t milliseconds);

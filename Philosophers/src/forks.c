@@ -6,11 +6,35 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/03 16:46:15 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/10 17:30:58 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+/**
+ * @brief Determines the order of forks to pick up for deadlock prevention
+ *        and assigns them to the provided pointer-to-pointer arguments.
+ * @param philo Pointer to the philosopher's structure.
+ * @param first_fork_ptr Pointer to a pthread_mutex_t pointer, will be set
+ *                       to the first fork to lock.
+ * @param second_fork_ptr Pointer to a pthread_mutex_t pointer, will be set
+ *                        to the second fork to lock.
+ */
+static void	philo_take_forks_aux(t_philo *philo, 
+	pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
+{
+	if (philo->id % 2 == 0)
+	{
+		*first_fork_ptr = philo->right_fork;
+		*second_fork_ptr = philo->left_fork;
+	}
+	else
+	{
+		*first_fork_ptr = philo->left_fork;
+		*second_fork_ptr = philo->right_fork;
+	}
+}
 
 /**
  * @brief Releases (unlocks) both forks held by the philosopher.
@@ -37,16 +61,9 @@ void	philo_take_forks_ordered(t_philo *philo)
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
 
-	if (philo->id % 2 == 0)
-	{
-		first_fork = philo->right_fork;
-		second_fork = philo->left_fork;
-	}
-	else
-	{
-		first_fork = philo->left_fork;
-		second_fork = philo->right_fork;
-	}
+	philo_take_forks_aux(philo, &first_fork, &second_fork);
+	if (philo_is_sim_over(philo))
+		return ;
 	pthread_mutex_lock(first_fork);
 	philo_log_state(philo, "has taken a fork");
 	if (philo_is_sim_over(philo))
