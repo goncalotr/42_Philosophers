@@ -1,5 +1,7 @@
 # Philosophers Testing Guide
 
+Some testing of this project is presented here.
+
 ## Program Testing
 
 Test with various inputs:
