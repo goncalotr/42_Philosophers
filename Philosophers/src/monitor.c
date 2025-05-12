@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/10 16:53:16 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:39:43 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@ static int	philo_handle_death(t_program *program, int philo_index)
 	size_t	timestamp_ms;
 
 	pthread_mutex_lock(&program->dead_lock);
-	/*
-	if (!program->dead_flag)
-	{
-		program->dead_flag = 1;
-		pthread_mutex_unlock(&program->dead_lock);
-		philo_log_state(&program->philos[philo_index], "died");
-	}
-	else
-	{
-		pthread_mutex_unlock(&program->dead_lock);
-	}
-	*/
 	if (program->dead_flag)
 	{
 		pthread_mutex_unlock(&program->dead_lock);
@@ -62,31 +50,20 @@ static int	philo_handle_death(t_program *program, int philo_index)
 
 /**
  * Checks if all philosophers have eaten enough times.
- * Returns 1 if all have eaten enough, 0 otherwise. Assumes meal_lock held.
- * 
- * Assumes meal_lock is ALREADY HELD by caller
- * And program->num_times_to_eat has already been checked to be > -1
+ * Returns 1 if all have eaten enough, 0 otherwise.
  */
-/*
-static int	philo_check_all_ate(t_program *program)
+static int philo_check_stop_conditions_aux(t_program *program, int *all_ate_flag)
 {
-	int		i;
-	int		all_finished_eating;
-
-	i = 0;
-	all_finished_eating = 1;
-	while (i < program->num_of_philos)
+	if (*all_ate_flag)
 	{
-		if (program->philos[i].meals_eaten < (size_t)program->num_times_to_eat)
-		{
-			all_finished_eating = 0;
-			break ;
-		}
-		i++;
+		pthread_mutex_lock(&program->dead_lock);
+		if (!program->dead_flag)
+			program->dead_flag = 1;
+		pthread_mutex_unlock(&program->dead_lock);
+		return (1);
 	}
-	return (all_finished_eating);
+	return (0);
 }
-*/
 
 /**
  * @brief Checks death and meal completion for all philosophers for one cycle.
@@ -117,13 +94,9 @@ static int	philo_check_stop_conditions(t_program *program, int *all_ate_flag)
 		pthread_mutex_unlock(&program->meal_lock);
 		i++;
 	}
-	if (*all_ate_flag)
+	if (philo_check_stop_conditions_aux(program, all_ate_flag))
 	{
-		pthread_mutex_lock(&program->dead_lock);
-		if (!program->dead_flag)
-			program->dead_flag = 1;
-		pthread_mutex_unlock(&program->dead_lock);
-		return (1);
+		return (1); 
 	}
 	return (0);
 }
