@@ -1,49 +1,102 @@
 # Philosophers Testing Guide
 
-Some testing of this project is presented here.
+This guide outlines various tests to ensure the correctness, robustness, and efficiency of the Philosophers project implementation.
 
 ## Program Testing
+
+Testing the program with various inputs is crucial to cover different scenarios.
+
+**Arguments:**
+1.  `number_of_philosophers`
+2.  `time_to_die` (ms)
+3.  `time_to_eat` (ms)
+4.  `time_to_sleep` (ms)
+5.  `[number_of_times_each_philosopher_must_eat]` (optional)
+
 
 Test with various inputs:
 - Subject examples: 4 410 200 200, 5 800 200 200, 5 800 200 200 7
 - Edge cases: 1 800 200 200, 2 100 10 10, 4 310 200 100 (potential death)
 - Large numbers (within reason): 200 800 200 200
 
-Limitations
+**General Checks for All Tests:**
+- Timestamps should be accurate (in ms, increasing order).
+- Output format should match the subject requirements (e.g., `timestamp_in_ms X has taken a fork`).
+- Only one death message should be printed if a philosopher dies.
+- The simulation should stop immediately after a death is detected.
+- No output should occur after a death message (except potentially program cleanup messages if you added any).
+- If the optional meal count is provided, the program should terminate cleanly after all philosophers have eaten the specified number of times, without any deaths (unless times make it impossible).
+
 ### Simple Scenarios
 
+#### Scenario 1
 
 ```bash
-./philo 1 1000 200 200
+./philo 1 800 200 200
 ```
 
-- Description: 1 philosopher with `time_to_die` of 1000 ms while `time_to_eat` is 200 ms and `time_to_sleep` is 200 ms
-- Expected Behavior: Philospher should die after 1000 ms because there aren't 2 forks to allow eating.
+- Description: 1 philosopher with `time_to_die` of 800ms, `time_to_eat` of 200ms, `time_to_sleep` of 200ms.
+- Expected Behavior: The philosopher needs two forks to eat but only one is available (its own). It cannot eat and should die after exactly 800ms (+/- small margin for timing inaccuracies, typically within 10ms). The output should be 800 1 died (or similar, adjusted for exact timing).
+
+#### Scenario 2
 
 ```bash
 ./philo 5 800 200 200
 ```
 
-- Description: There are 5 philosophers, and each has a time_to_die of 800 ms, time_to_eat of 200 ms, and time_to_sleep of 200 ms.
-- Expected Behavior: No philosopher should die. They should continuously take turns eating and sleeping.
+- Description: 5 philosophers, `time_to_die` = 800 ms, `time_to_eat` = 200 ms, `time_to_sleep` = 200 ms. This is a standard "happy path".
+- Expected Behavior: No philosopher should die. The time_to_die is double the time_to_eat + time_to_sleep, providing ample time even with moderate waiting for forks. The simulation should run indefinitely (or until manually stopped) with philosophers cycling through thinking, eating, and sleeping states.
+
+#### Scenario 3
 
 ```bash
  ./philo 5 800 200 200 7
 ```
 
-- Description:
-- Expected Behavior:
+- Description: Same as above, but with the optional argument: each philosopher must eat 7 times.
+- Expected Behavior: No philosopher should die. The simulation should run until each of the 5 philosophers has completed its 7th meal. The program should then terminate cleanly without any death message. All meal counts should be reached.
+
+#### Scenario 4
 
 ```bash
 ./philo 4 410 200 200
 ```
 
-- Description:
-- Expected Behavior:
+- Description: 4 philosophers, `time_to_die` = 410ms, `time_to_eat` = 200 ms, `time_to_sleep` = 200 ms. `time_to_die` is very close to `time_to_eat` + `time_to_sleep` (400ms).
+- Expected Behavior: No philosopher should die. This tests the efficiency of the scheduling and fork acquisition. Any significant delay (> 10ms) for a philosopher waiting for forks after sleeping could cause death, so the implementation must be reasonably performant and fair.
+
+#### Scenario 5
 
 ```bash
 ./philo 4 310 200 100
 ```
+
+- Description: 4 philosophers, `time_to_die` = 310 ms, `time_to_eat` = 200 ms, `time_to_sleep` = 100 ms. `time_to_die` is barely larger than `time_to_eat` + `time_to_sleep` (300ms).
+
+- Expected Behavior: At least one philosopher is expected to die. The time buffer (10ms) is extremely small. After eating (200ms) and sleeping (100ms), a philosopher has almost no time left before time_to_die (measured from the start of the last meal) expires. Waiting for forks will likely cause death. The simulation must stop immediately after the first death, reporting the correct philosopher and a timestamp close to their expected death time (e.g., `start_of_last_meal_time` + 310 ms).
+
+### Bad Usage (Error Handling)
+
+```bash
+./philo
+```
+
+
+
+
+
+
+
+
+- Description:
+- Expected Behavior:
+
+
+
+- Description:
+- Expected Behavior:
+
+
 
 - Description:
 - Expected Behavior:
