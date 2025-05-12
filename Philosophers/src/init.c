@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/10 16:47:59 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:00:22 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,24 +100,9 @@ int	philo_init_forks(pthread_mutex_t *forks, int num_philosophers)
 	return (0);
 }
 
-/*
- * @brief Initializes each philosopher's state.
- * Assumes program and forks are already successfully initialized.
- * @return Always 0 (success assumed if previous steps passed).
- * 
- * assign forks
- * left philo ID
- * right next philo ID
- */
-int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
+static void	philo_init_philos_aux(t_program *program, \
+		pthread_mutex_t *forks, int i, size_t start_time)
 {
-	int		i;
-	size_t	start_time;
-
-	start_time = philo_get_time();
-	i = 0;
-	while (i < program->num_of_philos)
-	{
 		program->philos[i].id = i + 1;
 		program->philos[i].eating = 0;
 		program->philos[i].meals_eaten = 0;
@@ -136,6 +121,27 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 		program->philos[i].left_fork = &forks[i];
 		program->philos[i].right_fork = &forks[(i + 1) \
 			% program->num_of_philos];
+}
+
+/*
+ * @brief Initializes each philosopher's state.
+ * Assumes program and forks are already successfully initialized.
+ * @return Always 0 (success assumed if previous steps passed).
+ * 
+ * assign forks
+ * left philo ID
+ * right next philo ID
+ */
+int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
+{
+	int		i;
+	size_t	start_time;
+
+	start_time = philo_get_time();
+	i = 0;
+	while (i < program->num_of_philos)
+	{
+		philo_init_philos_aux(program, forks, i, start_time);
 		if (program->philos[i].id % 2 == 0)
 		{
 			program->philos[i].left_fork = \
