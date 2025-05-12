@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/12 13:39:43 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:54:37 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static int	philo_handle_death(t_program *program, int philo_index)
  * Checks if all philosophers have eaten enough times.
  * Returns 1 if all have eaten enough, 0 otherwise.
  */
-static int philo_check_stop_conditions_aux(t_program *program, int *all_ate_flag)
+static int	philo_check_stop_conditions_aux(t_program *program, \
+		int *all_ate_flag)
 {
 	if (*all_ate_flag)
 	{
@@ -96,7 +97,7 @@ static int	philo_check_stop_conditions(t_program *program, int *all_ate_flag)
 	}
 	if (philo_check_stop_conditions_aux(program, all_ate_flag))
 	{
-		return (1); 
+		return (1);
 	}
 	return (0);
 }
