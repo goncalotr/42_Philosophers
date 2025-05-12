@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:05:21 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 14:05:32 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:52:54 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,25 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+/**
+ * whitespace characters
+ * ' '  // space
+ * '\t' // horizontal tab
+ * '\n' // newline (line feed)
+ * '\v' // vertical tab
+ * '\f' // form feed
+ * '\r' // carriage return
+ */
+static int	ft_atol_aux(char *str, int i)
+{
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r')
+	{
+		i++;
+	}
+	return (i);
+}
+
 int	ft_atol(char *str)
 {
 	long int	number;
@@ -33,9 +52,7 @@ int	ft_atol(char *str)
 	number = 0;
 	sign = 1;
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r')
-		i++;
+	ft_atol_aux(str, i);
 	if (str[i] == '-')
 		sign = -1;
 	if (str[i] == '-' || str[i] == '+')
