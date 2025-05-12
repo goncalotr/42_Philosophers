@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/10 17:30:58 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:40:59 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param second_fork_ptr Pointer to a pthread_mutex_t pointer, will be set
  *                        to the second fork to lock.
  */
-static void	philo_take_forks_aux(t_philo *philo, 
+static void	philo_take_forks_aux(t_philo *philo, \
 	pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
 {
 	if (philo->id % 2 == 0)

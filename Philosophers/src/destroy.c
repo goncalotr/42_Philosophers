@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:09:50 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/10 17:34:50 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:27:41 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ static void	philo_destroy_shared_mutexes(t_program *program)
 /**
  * @brief Destroys all initialized mutexes and frees allocated memory.
  *        Can optionally print an error message before cleanup.
- * @param msg An optional error message to print before cleaning up. If NULL,
- *            no message is printed (normal cleanup).
+ * @param msg An optional error message to print before cleaning up.
+ * If NULL, no message is printed (normal cleanup).
  * @param program Pointer to the main program structure.
- * @param forks Pointer to the array of fork mutexes (might be NULL if alloc failed).
+ * @param forks Pointer to the array of fork mutexes
+ * (might be NULL if alloc failed).
  * 
  * Destroy resources in roughly the reverse order of creation
  * 1. Destroy shared mutexes
@@ -70,8 +71,11 @@ void	philo_destroy_all(const char *msg, t_program *program, \
 	{
 		printf("Error: %s\n", msg);
 	}
-	if (!program) return;
-		num_philos = program->num_of_philos;
+	if (!program)
+	{
+		return ;
+	}
+	num_philos = program->num_of_philos;
 	if (forks)
 	{
 		philo_destroy_fork_mutexes(program, forks);
