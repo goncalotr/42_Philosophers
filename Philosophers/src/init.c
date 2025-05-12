@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/12 13:00:22 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:10:26 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,24 +103,24 @@ int	philo_init_forks(pthread_mutex_t *forks, int num_philosophers)
 static void	philo_init_philos_aux(t_program *program, \
 		pthread_mutex_t *forks, int i, size_t start_time)
 {
-		program->philos[i].id = i + 1;
-		program->philos[i].eating = 0;
-		program->philos[i].meals_eaten = 0;
-		program->philos[i].num_of_philos = program->num_of_philos;
-		program->philos[i].time_to_die = (size_t)ft_atol(program->argv[2]);
-		program->philos[i].time_to_eat = (size_t)ft_atol(program->argv[3]);
-		program->philos[i].time_to_sleep = (size_t)ft_atol(program->argv[4]);
-		program->philos[i].num_times_to_eat = program->num_times_to_eat;
-		program->philos[i].start_time = start_time;
-		program->philos[i].last_meal_time = start_time;
-		program->philos[i].program = program;
-		program->philos[i].write_lock = &program->write_lock;
-		program->philos[i].dead_lock = &program->dead_lock;
-		program->philos[i].meal_lock = &program->meal_lock;
-		program->philos[i].dead_flag = &program->dead_flag;
-		program->philos[i].left_fork = &forks[i];
-		program->philos[i].right_fork = &forks[(i + 1) \
-			% program->num_of_philos];
+	program->philos[i].id = i + 1;
+	program->philos[i].eating = 0;
+	program->philos[i].meals_eaten = 0;
+	program->philos[i].num_of_philos = program->num_of_philos;
+	program->philos[i].time_to_die = (size_t)ft_atol(program->argv[2]);
+	program->philos[i].time_to_eat = (size_t)ft_atol(program->argv[3]);
+	program->philos[i].time_to_sleep = (size_t)ft_atol(program->argv[4]);
+	program->philos[i].num_times_to_eat = program->num_times_to_eat;
+	program->philos[i].start_time = start_time;
+	program->philos[i].last_meal_time = start_time;
+	program->philos[i].program = program;
+	program->philos[i].write_lock = &program->write_lock;
+	program->philos[i].dead_lock = &program->dead_lock;
+	program->philos[i].meal_lock = &program->meal_lock;
+	program->philos[i].dead_flag = &program->dead_flag;
+	program->philos[i].left_fork = &forks[i];
+	program->philos[i].right_fork = &forks[(i + 1) \
+		% program->num_of_philos];
 }
 
 /*
