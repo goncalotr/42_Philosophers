@@ -159,6 +159,8 @@ Test with various inputs:
 - Description: Large number of philosophers (200). Tests concurrency handling, potential for slowdowns due to mutex contention, and fairness.
 - Expected Behavior: No philosopher should die, as `time_to_die` is generous. The simulation should run without deadlocking or crashing. Monitor for excessive CPU usage or slowdowns compared to smaller numbers of philosophers. (Adding an optional meal count, e.g., ./philo 200 800 200 200 5, is useful to check if it terminates correctly under load).
 
+#### Template
+
 ```bash
 ./philo <N> <T_die> <T_eat> <T_sleep> [meals]
 ```
