@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 17:37:26 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 18:48:57 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ static void	philo_take_forks_aux(t_philo *philo, \
  * 
  * Determine order based on fork address
  * (or index if forks are an array)
+ * 
+ * philo_usleep(philo, philo->time_to_die * 2);
+ * philo_usleep(philo, philo->time_to_die + 10);
  */
 void	philo_take_forks_ordered(t_philo *philo)
 {
@@ -89,10 +92,16 @@ void	philo_take_forks_ordered(t_philo *philo)
 	}
 	if (philo->num_of_philos == 1)
 	{
-		philo_usleep(philo, philo->time_to_die * 2);
+		philo_usleep(philo, philo->time_to_die + 10);
 		pthread_mutex_unlock(first_fork);
 		return ;
 	}
 	pthread_mutex_lock(second_fork);
+	if (philo_is_sim_over(philo))
+	{
+		pthread_mutex_unlock(second_fork); 
+		pthread_mutex_unlock(first_fork);
+		return ;
+	}
 	philo_log_state(philo, "has taken a fork");
 }
