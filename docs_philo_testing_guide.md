@@ -25,7 +25,11 @@ Test with various inputs:
 - Only one death message should be printed if a philosopher dies.
 - The simulation should stop immediately after a death is detected.
 - No output should occur after a death message (except potentially program cleanup messages if you added any).
-- If the optional meal count is provided, the program should terminate cleanly after all philosophers have eaten the specified number of times, without any deaths (unless times make it impossible).
+- If the optional meal count is provided, the program should terminate cleanly after all philosophers have eaten the specified number of times, without any deaths (unless times make it impossible). Add `grep "is eating"` or `grep "ONE_PHILO is eating" | wc -l` to help counting. Example:
+
+	```bash
+	./philo 200 800 200 200 10 | grep "1 is eating" | wc -l
+	```
 
 ### Simple Scenarios
 
@@ -158,6 +162,7 @@ Test with various inputs:
 
 - Description: Large number of philosophers (200). Tests concurrency handling, potential for slowdowns due to mutex contention, and fairness.
 - Expected Behavior: No philosopher should die, as `time_to_die` is generous. The simulation should run without deadlocking or crashing. Monitor for excessive CPU usage or slowdowns compared to smaller numbers of philosophers. (Adding an optional meal count, e.g., ./philo 200 800 200 200 5, is useful to check if it terminates correctly under load).
+
 
 #### Template
 
