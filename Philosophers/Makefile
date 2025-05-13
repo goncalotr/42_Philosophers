@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/05/13 16:07:50 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/13 19:00:20 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,7 +126,11 @@ re:				fclean all
 
 # Rule to use valgrind
 # Example:
-# make memcheck ARGS="4 410 200 200"
+
+#make memcheck ARGS="4 410 200 200"
+#make helgrind ARGS="200 800 200 200"
+
+
 memcheck:		
 				@echo "$(BLUE)--- Ensuring standard build for Valgrind Memcheck ---$(RESET)"
 				@$(MAKE) --no-print-directory fclean # Ensure no old sanitized build
@@ -135,6 +139,17 @@ memcheck:
 				@valgrind --leak-check=full \
 						  --show-leak-kinds=all \
 						  --track-origins=yes \
+						  --log-file=valgrind-memcheck.log \
+						  ./$(NAME) $(ARGS)
+				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
+
+helgrind:		
+				@echo "$(BLUE)--- Ensuring standard build for Valgrind Memcheck ---$(RESET)"
+				@$(MAKE) --no-print-directory fclean # Ensure no old sanitized build
+				@$(MAKE) --no-print-directory all # Build standard version
+				@echo "$(BLUE)--- Running Valgrind Memcheck on ./$(NAME) ---$(RESET)"
+				@valgrind --tool=helgrind \
+						  --history-level=approx \
 						  --log-file=valgrind-memcheck.log \
 						  ./$(NAME) $(ARGS)
 				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
