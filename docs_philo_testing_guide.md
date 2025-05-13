@@ -77,15 +77,78 @@ Test with various inputs:
 
 ### Bad Usage (Error Handling)
 
+#### Scenario 1
+
 ```bash
 ./philo
 ```
 
+- Description: No program arguments provided.
+- Expected Behavior: Error message indicating too few arguments. Program should exit with a non-zero status code. No simulation should start.
 
+#### Scenario 2
 
+```bash
+./philo 1 2 3
+```
 
+- Description: Too few program arguments (4 required, 5 optional).
+- Expected Behavior: Error message indicating too few arguments. Program should exit with a non-zero status code. No simulation should start.
 
+#### Scenario 3
 
+```bash
+./philo 1 2 3 4 5 6
+```
+
+- Description: Too many program arguments (max 5 allowed).
+- Expected Behavior: Error message indicating too many arguments. Program should exit with a non-zero status code. No simulation should start.
+
+#### Scenario 4
+
+```bash
+./philo five 800 200 200
+```
+- Description: Non-numeric value for number_of_philosophers.
+- Expected Behavior: Error message indicating invalid input (e.g., "Error: Arguments must be positive integers"). Program should exit with a non-zero status code.
+
+#### Scenario 5
+
+```bash
+./philo 5 -800 200 200
+```
+
+- Description: Negative value for `time_to_die`.
+- Expected Behavior: Error message indicating invalid input (e.g., "Error: Time arguments must be non-negative integers"). Program should exit with a non-zero status code.
+
+#### Scenario 6
+
+```bash
+./philo 0 800 200 200
+```
+
+- Description: Zero philosophers specified.
+- Expected Behavior: Error message indicating invalid input (e.g., "Error: Number of philosophers must be greater than 0"). Program should exit with a non-zero status code.
+
+#### Scenario 7
+
+```bash
+./philo 5 800 200 200 0
+```
+
+- Description: Optional meal count is zero.
+- Expected Behavior: The program should start and terminate immediately and cleanly, as no meals need to be eaten. No philosopher should perform any action (eat, sleep, think).
+
+### Edge Cases & Stress Tests
+
+#### Scenario 1
+
+```bash
+./philo 2 100 200 200
+```
+
+- Description: 2 philosophers where time_to_eat > time_to_die.
+- Expected Behavior: Both philosophers should attempt to eat, but neither can complete a meal before time_to_die expires. Both should die relatively quickly (around 100ms). The program must detect and report the first death accurately (timestamp +/- 10ms) and terminate immediately.
 
 
 - Description:
