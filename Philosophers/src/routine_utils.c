@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 19:10:31 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/02 14:10:44 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:44:32 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
  * @brief Safely checks if the simulation has ended.
  * @param philo Pointer to the philosopher's structure.
  * @return 1 if simulation is over (death flag set), 0 otherwise.
- * 
- * *(data->dead) ??
  */
 int	philo_is_sim_over(t_philo *data)
 {
@@ -37,10 +35,9 @@ int	philo_is_sim_over(t_philo *data)
  */
 static int	philo_check_dead_flag_unsafe(t_philo *philo)
 {
-	int	flag;
-
-	flag = *(philo->dead_flag);
-	return (flag);
+	if (*philo->dead_flag == 1)
+		return (1);
+	return (0);
 }
 
 /**
@@ -54,10 +51,12 @@ void	philo_log_state(t_philo *philo, const char *state_msg)
 	size_t	timestamp_ms;
 
 	pthread_mutex_lock(philo->write_lock);
-	if (!philo_check_dead_flag_unsafe(philo))
+	if (philo_check_dead_flag_unsafe(philo))
 	{
-		timestamp_ms = philo_get_time() - philo->start_time;
-		printf("%zu %d %s\n", timestamp_ms, philo->id, state_msg);
+		pthread_mutex_unlock(philo->write_lock);
+		return ;
 	}
+	timestamp_ms = philo_get_time() - philo->start_time;
+	printf("%zu %d %s\n", timestamp_ms, philo->id, state_msg);
 	pthread_mutex_unlock(philo->write_lock);
 }
