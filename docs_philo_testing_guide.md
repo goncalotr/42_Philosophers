@@ -147,50 +147,69 @@ Test with various inputs:
 ./philo 2 100 200 200
 ```
 
-- Description: 2 philosophers where time_to_eat > time_to_die.
+- Description: 2 philosophers where `time_to_eat` > `time_to_die`.
 - Expected Behavior: Both philosophers should attempt to eat, but neither can complete a meal before time_to_die expires. Both should die relatively quickly (around 100ms). The program must detect and report the first death accurately (timestamp +/- 10ms) and terminate immediately.
 
-
-- Description:
-- Expected Behavior:
-
-
-
-- Description:
-- Expected Behavior:
-
-
-
-- Description:
-- Expected Behavior:
-
-### Bad Usage
+#### Scenario 2
 
 ```bash
-./philo 5 800 200 200 5
+./philo 200 800 200 200
 ```
-- Description: Too many program arguments
-- Expected Behavior: Error - Too many arguments
+
+- Description: Large number of philosophers (200). Tests concurrency handling, potential for slowdowns due to mutex contention, and fairness.
+- Expected Behavior: No philosopher should die, as `time_to_die` is generous. The simulation should run without deadlocking or crashing. Monitor for excessive CPU usage or slowdowns compared to smaller numbers of philosophers. (Adding an optional meal count, e.g., ./philo 200 800 200 200 5, is useful to check if it terminates correctly under load).
 
 ```bash
-./philo
-```
-- Description: No program arguments
-- Expected Behavior: Error - Too few arguments
-
-### Edge Cases
-
-```shell
-./philo 2 <various times>
+./philo <N> <T_die> <T_eat> <T_sleep> [meals]
 ```
 
-- Description: Use 2 philosophers with different time_to_die, time_to_eat, and time_to_sleep values to test edge cases.
-- Expected Behavior: Test for accurate death timing. A death delayed by more than 10 ms is unacceptable in these tests.
+- Description: General template. Experiment with various combinations, especially where T_die is close to T_eat + T_sleep or T_eat * 2 (if they might have to wait for forks for a full cycle). Pay close attention to the death time accuracy (should be within ~10ms of the expected time).
 
-## Leak Testing
+## Thread Safety & Leak Testing
 
-Valgrind and sanitize
-- **leak-check==**: Run valgrind `--leak-check=full` for memory leaks 
-- **Helgrind**: Run with valgrind `--tool=helgrind` to check for potential deadlocks and race conditions related to mutex usage.
-- **DRD**: Run with valgrind `--tool=drd` for another perspective on data races.
-- **FSanitise**: Compile with `-fsanitize=thread` to detect threading problems while running.
+Use dedicated tools to detect subtle threading issues (data races, deadlocks) and memory leaks. Compile with -g to include debug symbols for more informative reports.
+
+Compilation Flags:
+- Use `-pthread` for thread library linking.
+- Use `-g` for debug symbols.
+
+Tools:
+
+1. Valgrind (Memcheck): Detects memory leaks and invalid memory access.
+
+	```bash
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./philo 5 800 200 200
+	```
+
+	- Purpose: Ensure no memory allocated (e.g., for threads, mutexes, philosopher data) is leaked.
+	- Expected: No leaks are possible or definitely lost.
+
+2. Valgrind (Helgrind): Detects potential deadlocks and data races related to mutex usage and thread ordering.
+
+	```bash
+	valgrind --tool=helgrind ./philo 5 800 200 200
+	```
+
+	- Purpose: Identify issues like improper mutex locking/unlocking, potential race conditions where data is accessed without adequate protection, and lock order inversions that could lead to deadlocks.
+	- Expected: No errors reported. Helgrind can sometimes report false positives, but all reports should be investigated.
+
+3. Valgrind (DRD): Another tool for detecting data races and lock contention issues. May find different issues than Helgrind.
+
+	```bash
+	valgrind --tool=drd ./philo 5 800 200 200
+	```
+
+	- Purpose: Alternative or supplement to Helgrind for finding threading errors.
+	- Expected: No errors reported.
+
+4. Thread Sanitizer (TSan): Compile-time instrumentation to detect data races and deadlocks at runtime. Often faster than Valgrind tools but requires recompilation.
+
+	```bash
+	# Compile with TSan enabled
+	gcc -g -pthread -fsanitize=thread your_files.c -o philo_tsan
+	# Run the instrumented executable
+	./philo_tsan 5 800 200 200
+	```
+
+	- Purpose: Detect data races (accessing shared memory without proper locking) during execution.
+	- Expected: No data race warnings printed to stderr during execution.
