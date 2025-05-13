@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/12 15:54:37 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:06:16 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ static int	philo_check_stop_conditions(t_program *program, int *all_ate_flag)
  * Check meals only if death didn't occur and meal count is active
  * All Ate Condition Met (after unlock)
  * dead check to prevent race
+ * 
+ * Small delay to prevent busy-waiting in the monitor loop.
+ * 1 ms delay
  */
 void	philo_monitor_sim(t_program *program)
 {
@@ -122,6 +125,6 @@ void	philo_monitor_sim(t_program *program)
 	{
 		stop_monitoring = philo_check_stop_conditions(program, &all_ate_status);
 		if (!stop_monitoring)
-			philo_usleep(1);
+			usleep(1000);
 	}
 }

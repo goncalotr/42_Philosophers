@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:47:58 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/10 17:37:09 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:03:07 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 != 0)
-		philo_usleep(1);
+		philo_usleep(philo, 1);
 	while (!philo_is_sim_over(philo))
 	{
 		philo_take_forks_ordered(philo);
