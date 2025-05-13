@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 16:46:20 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:19:09 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ typedef struct s_philo
 	size_t				meals_eaten;
 	size_t				start_time;
 	size_t				last_meal_time;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		*fork_a;
+	pthread_mutex_t		*fork_b;
 	pthread_mutex_t		*write_lock;
 	pthread_mutex_t		*dead_lock;
 	pthread_mutex_t		*meal_lock;

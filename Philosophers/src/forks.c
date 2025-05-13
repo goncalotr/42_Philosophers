@@ -6,11 +6,22 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 12:51:54 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:37:26 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+/**
+ * @brief Releases (unlocks) both forks held by the philosopher.
+ * @param philo Pointer to the philosopher's structure.
+ */
+void	philo_release_forks(t_philo *philo)
+{
+	pthread_mutex_unlock(philo->fork_a);
+	if (philo->num_of_philos > 1)
+		pthread_mutex_unlock(philo->fork_b);
+}
 
 /**
  * @brief Determines the order of forks to pick up for deadlock prevention
@@ -24,6 +35,7 @@
 static void	philo_take_forks_aux(t_philo *philo, \
 	pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
 {
+	/*
 	if (philo->id % 2 == 0)
 	{
 		*first_fork_ptr = philo->right_fork;
@@ -34,17 +46,18 @@ static void	philo_take_forks_aux(t_philo *philo, \
 		*first_fork_ptr = philo->left_fork;
 		*second_fork_ptr = philo->right_fork;
 	}
-}
+	*/
 
-/**
- * @brief Releases (unlocks) both forks held by the philosopher.
- * @param philo Pointer to the philosopher's structure.
- */
-void	philo_release_forks(t_philo *philo)
-{
-	pthread_mutex_unlock(philo->left_fork);
-	if (philo->num_of_philos > 1)
-		pthread_mutex_unlock(philo->right_fork);
+	if (philo->fork_a < philo->fork_b) 
+	{
+		*first_fork_ptr = philo->fork_a;
+		*second_fork_ptr = philo->fork_b;
+	}
+	else
+	{
+		*first_fork_ptr = philo->fork_b;
+		*second_fork_ptr = philo->fork_a;
+	}
 }
 
 /**
@@ -55,6 +68,9 @@ void	philo_release_forks(t_philo *philo)
  * 
  * Even IDs take the right fork first
  * Odd IDs take the left fork first
+ * 
+ * Determine order based on fork address
+ * (or index if forks are an array)
  */
 void	philo_take_forks_ordered(t_philo *philo)
 {

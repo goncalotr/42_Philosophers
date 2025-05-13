@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/12 13:10:26 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:35:12 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	philo_init_program(t_program *program, t_philo *philos, \
 	return (0);
 }
 
-/*
+/**
  * @brief Initializes the mutexes for the forks.
  * @return 0 on success, 1 on error (destroys already created forks).
  */
@@ -100,6 +100,10 @@ int	philo_init_forks(pthread_mutex_t *forks, int num_philosophers)
 	return (0);
 }
 
+/**
+ * left_fork => fork_a
+ * right_fork -> fork_b
+ */
 static void	philo_init_philos_aux(t_program *program, \
 		pthread_mutex_t *forks, int i, size_t start_time)
 {
@@ -118,12 +122,12 @@ static void	philo_init_philos_aux(t_program *program, \
 	program->philos[i].dead_lock = &program->dead_lock;
 	program->philos[i].meal_lock = &program->meal_lock;
 	program->philos[i].dead_flag = &program->dead_flag;
-	program->philos[i].left_fork = &forks[i];
-	program->philos[i].right_fork = &forks[(i + 1) \
+	program->philos[i].fork_a = &forks[i];
+	program->philos[i].fork_b = &forks[(i + 1) \
 		% program->num_of_philos];
 }
 
-/*
+/**
  * @brief Initializes each philosopher's state.
  * Assumes program and forks are already successfully initialized.
  * @return Always 0 (success assumed if previous steps passed).
@@ -144,9 +148,9 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 		philo_init_philos_aux(program, forks, i, start_time);
 		if (program->philos[i].id % 2 == 0)
 		{
-			program->philos[i].left_fork = \
+			program->philos[i].fork_a = \
 				&forks[(i + 1) % program->num_of_philos];
-			program->philos[i].right_fork = &forks[i];
+			program->philos[i].fork_b = &forks[i];
 		}
 		i++;
 	}
