@@ -6,11 +6,21 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:44:13 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 12:57:50 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:09:37 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+int	philo_usleep_simple(size_t ms)
+{
+	size_t	start;
+
+	start = philo_get_time();
+	while ((philo_get_time() - start) < ms)
+		usleep(100);
+	return (0);
+}
 
 /**
  * @brief Custom usleep function that sleeps for 'total_ms'

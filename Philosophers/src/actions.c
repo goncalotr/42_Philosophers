@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:43:40 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 12:50:13 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:21:54 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	philo_sleep(t_philo *philo)
 		return ;
 	}
 	philo_log_state(philo, "is sleeping");
+	philo_usleep_simple(10);
 	philo_usleep(philo, philo->time_to_sleep);
 }
 
