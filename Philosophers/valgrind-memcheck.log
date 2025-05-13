@@ -1,0 +1,56 @@
+==25023== Memcheck, a memory error detector
+==25023== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==25023== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==25023== Command: ./philo 4 410 200 200
+==25023== Parent PID: 24967
+==25023== 
+==25023== 
+==25023== Process terminating with default action of signal 2 (SIGINT)
+==25023==    at 0x49567F8: clock_nanosleep@@GLIBC_2.17 (clock_nanosleep.c:78)
+==25023==    by 0x495B676: nanosleep (nanosleep.c:25)
+==25023==    by 0x498CF2E: usleep (usleep.c:31)
+==25023==    by 0x402441: philo_usleep (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023==    by 0x401D0C: philo_monitor_sim (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023==    by 0x4021ED: philo_thread_create (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023==    by 0x4029E7: main (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023== 
+==25023== HEAP SUMMARY:
+==25023==     in use at exit: 2,112 bytes in 5 blocks
+==25023==   total heap usage: 5 allocs, 0 frees, 2,112 bytes allocated
+==25023== 
+==25023== 1,024 bytes in 1 blocks are still reachable in loss record 1 of 2
+==25023==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25023==    by 0x48EFBA3: _IO_file_doallocate (filedoalloc.c:101)
+==25023==    by 0x48FECDF: _IO_doallocbuf (genops.c:347)
+==25023==    by 0x48FDF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==25023==    by 0x48FC6D4: _IO_new_file_xsputn (fileops.c:1243)
+==25023==    by 0x48FC6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==25023==    by 0x48E6CA8: outstring_func (vfprintf-internal.c:239)
+==25023==    by 0x48E6CA8: __vfprintf_internal (vfprintf-internal.c:1516)
+==25023==    by 0x48D179E: printf (printf.c:33)
+==25023==    by 0x40215F: philo_log_state (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023==    by 0x401BDF: philo_take_forks_ordered (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023==    by 0x402051: philo_routine (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023==    by 0x4905AC2: start_thread (pthread_create.c:442)
+==25023==    by 0x4996A03: clone (clone.S:100)
+==25023== 
+==25023== 1,088 bytes in 4 blocks are possibly lost in loss record 2 of 2
+==25023==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25023==    by 0x40147D9: calloc (rtld-malloc.h:44)
+==25023==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
+==25023==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+==25023==    by 0x49067B4: allocate_stack (allocatestack.c:430)
+==25023==    by 0x49067B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+==25023==    by 0x40228E: philo_create_threads_loop (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023==    by 0x4021B8: philo_thread_create (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023==    by 0x4029E7: main (in /home/goteixei/42/project_repos/42_Philosophers/Philosophers/philo)
+==25023== 
+==25023== LEAK SUMMARY:
+==25023==    definitely lost: 0 bytes in 0 blocks
+==25023==    indirectly lost: 0 bytes in 0 blocks
+==25023==      possibly lost: 1,088 bytes in 4 blocks
+==25023==    still reachable: 1,024 bytes in 1 blocks
+==25023==         suppressed: 0 bytes in 0 blocks
+==25023== 
+==25023== For lists of detected and suppressed errors, rerun with: -s
+==25023== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

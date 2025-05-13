@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/05/12 14:37:47 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/13 11:48:07 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,20 +37,29 @@ SRC_DIR			= src/
 CC				= cc
 RM				= rm -rf
 
-# Sanitizer Flags
-SAN_FLAGS		= -fsanitize=address
-SAN_FLAGS		+= -fsanitize=leak
-SAN_FLAGS		+= -fsanitize=undefined
-SAN_FLAGS		+= -fno-omit-frame-pointer
+# Default empty, will be overridden by specific targets like 'sanitize' or 'tsan'
+# Using '?=' assigns if not already set (e.g. from environment or command line).
+EXTRA_COMPILE_FLAGS	?=
+EXTRA_LINK_FLAGS	?=
 
-# Linker Flags
-LDFLAGS			= $(SAN_FLAGS)
-LDFLAGS        += -lpthread
+# General Sanitizer Flags (ASan, LSan, UBSan)
+# These are good for general memory error detection.
+GEN_SAN_FLAGS	= -fsanitize=address,leak,undefined -fno-omit-frame-pointer -g
 
-# Compiler Flags
-CFLAGS			= -Wall -Wextra -Werror -g
-CFLAGS			+= -I$(INC_DIR)
-CFLAGS			+= $(SAN_FLAGS)
+# Thread Sanitizer Flags (TSan)
+# Use TSan separately from GEN_SAN_FLAGS as they can sometimes conflict or be very slow together.
+TSAN_FLAGS		= -fsanitize=thread -fno-omit-frame-pointer -g
+
+# Base Compiler Flags (always applied)
+BASE_CFLAGS		= -Wall -Wextra -Werror -pthread
+BASE_CFLAGS		+= -I$(INC_DIR)
+
+# Base flags applied to all linking processes
+BASE_LDFLAGS	= -pthread
+
+# Final Compiler Flags (combines base with any extras)
+CFLAGS			= $(BASE_CFLAGS) $(EXTRA_COMPILE_FLAGS)
+LDFLAGS			= $(BASE_LDFLAGS) $(EXTRA_LINK_FLAGS)
 
 # -------------------------------------------------------------
 # MANDATORY
@@ -82,11 +91,11 @@ all:			$(NAME)
 
 $(NAME):		$(MANDATORY_OBJ) 
 				@echo "$(YELLOW)Compiling $(NAME) (Mandatory)...$(RESET)"
-				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) -o $(NAME)
+				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) $(LDFLAGS) -o $(NAME)
 				@echo "$(GREEN)$(NAME) compiled successfully!$(RESET)"
 				@echo "$(GREEN)+---------------------------------------------+"
 				@echo "|                                             |"
-				@echo "|       $(CHECKMARK) $(NAME) build successful!        |"
+				@echo "|         $(CHECKMARK) $(NAME) build successful!          |"
 				@echo "|                                             |"
 				@echo "+---------------------------------------------+$(RESET)"
 
@@ -116,45 +125,37 @@ re:				fclean all
 # --- Utility Rules ---
 
 # Rule to use valgrind
-valgrind:		all
-				@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes \
-					--track-origins=yes --trace-children=yes --tool=drd --tool=helgrind -fsanitize=thread ./philo
+# Example:
+# make memcheck ARGS="4 410 200 200"
+memcheck:		
+				@echo "$(BLUE)--- Ensuring standard build for Valgrind Memcheck ---$(RESET)"
+				@$(MAKE) --no-print-directory fclean # Ensure no old sanitized build
+				@$(MAKE) --no-print-directory all # Build standard version
+				@echo "$(BLUE)--- Running Valgrind Memcheck on ./$(NAME) ---$(RESET)"
+				@valgrind --leak-check=full \
+						  --show-leak-kinds=all \
+						  --track-origins=yes \
+						  --log-file=valgrind-memcheck.log \
+						  ./$(NAME) $(ARGS)
+				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
 
-# Rule for Valgrind Memory Checks (Memcheck)
-memcheck: all
-	@echo "--- Running Valgrind Memcheck ---"
-	@valgrind --leak-check=full \
-			  --show-leak-kinds=all \
-			  --track-origins=yes \
-			  --log-file=valgrind-memcheck.log \
-			  ./$(NAME) $(ARGS)
+# Sanitizer Build Targets
 
-# Rule for Valgrind Threading Checks (Helgrind)
-# Helgrind is often preferred over DRD for pthreads issues
-helgrind: all
-	@echo "--- Running Valgrind Helgrind ---"
-	@valgrind --tool=helgrind \
-			  --log-file=valgrind-helgrind.log \
-			  ./$(NAME) $(ARGS)
+sanitize:
+				@echo "$(BLUE)--- Building with General Sanitizers (ASan, LSan, UBSan) ---$(RESET)"
+				@$(MAKE) --no-print-directory fclean
+				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(GEN_SAN_FLAGS)" EXTRA_LINK_FLAGS="$(GEN_SAN_FLAGS)"
+				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with general sanitizers.$(RESET)"
+				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
 
-# Rule for Valgrind Threading Checks (DRD)
-# Alternative to Helgrind
-drd: all
-	@echo "--- Running Valgrind DRD ---"
-	@valgrind --tool=drd \
-			  --log-file=valgrind-drd.log \
-			  ./$(NAME) $(ARGS)
+tsan:
+				@echo "$(BLUE)--- Building with Thread Sanitizer (TSan) ---$(RESET)"
+				@$(MAKE) --no-print-directory fclean
+				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(TSAN_FLAGS)" EXTRA_LINK_FLAGS="$(TSAN_FLAGS)"
+				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with Thread Sanitizer.$(RESET)"
+				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
 
-# San
-tsan_build: fclean 
-	@$(MAKE) CFLAGS="$(filter-out -fsanitize=address -fsanitize=leak -fsanitize=undefined, $(CFLAGS)) $(TSAN_FLAGS)" \
-			 LDFLAGS="$(filter-out -fsanitize=address -fsanitize=leak -fsanitize=undefined, $(LDFLAGS)) $(TSAN_FLAGS)" \
-			 all
-
-run_tsan: tsan_build
-	@echo "--- Running TSan-instrumented build ---"
-#	@./$(NAME) $(ARGS)
-
+# --- Phony Targets ---
 .PHONY:			all clean fclean re valgrind
 
 #.SILENT
