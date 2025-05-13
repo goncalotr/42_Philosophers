@@ -220,3 +220,7 @@ Tools:
 
 	- Purpose: Detect data races (accessing shared memory without proper locking) during execution.
 	- Expected: No data race warnings printed to stderr during execution.
+
+## Other Testing Tools
+
+- https://nafuka11.github.io/philosophers-visualizer/
