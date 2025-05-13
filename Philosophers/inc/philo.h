@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 16:12:57 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:46:20 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	philo_destroy_all(const char *msg, t_program *program, \
 			pthread_mutex_t *forks);
 
 // --- time.c ---
-int		philo_usleep_simple(size_t ms);
+int		philo_usleep_simple(size_t us);
 int		philo_usleep(t_philo *philo, size_t total_ms);
 size_t	philo_get_time(void);
 

@@ -6,18 +6,18 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:44:13 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 14:09:37 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:46:05 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	philo_usleep_simple(size_t ms)
+int	philo_usleep_simple(size_t us)
 {
 	size_t	start;
 
 	start = philo_get_time();
-	while ((philo_get_time() - start) < ms)
+	while ((philo_get_time() - start) < us)
 		usleep(100);
 	return (0);
 }
