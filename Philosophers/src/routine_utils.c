@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 19:10:31 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 14:44:32 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:50:05 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	philo_is_sim_over(t_philo *data)
  * unlocking dead_lock (e.g., in handle_death). This check assumes write_lock
  * is already held by the caller (log_state).
  */
-static int	philo_check_dead_flag_unsafe(t_philo *philo)
+static int	philo_check_dead_flag(t_philo *philo)
 {
 	if (*philo->dead_flag == 1)
 		return (1);
@@ -51,7 +51,7 @@ void	philo_log_state(t_philo *philo, const char *state_msg)
 	size_t	timestamp_ms;
 
 	pthread_mutex_lock(philo->write_lock);
-	if (philo_check_dead_flag_unsafe(philo))
+	if (philo_check_dead_flag(philo))
 	{
 		pthread_mutex_unlock(philo->write_lock);
 		return ;

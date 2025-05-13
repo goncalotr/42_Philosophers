@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/05/13 11:48:07 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/13 16:07:50 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ GEN_SAN_FLAGS	= -fsanitize=address,leak,undefined -fno-omit-frame-pointer -g
 TSAN_FLAGS		= -fsanitize=thread -fno-omit-frame-pointer -g
 
 # Base Compiler Flags (always applied)
-BASE_CFLAGS		= -Wall -Wextra -Werror -pthread
+BASE_CFLAGS		= -Wall -Wextra -Werror -g -pthread
 BASE_CFLAGS		+= -I$(INC_DIR)
 
 # Base flags applied to all linking processes

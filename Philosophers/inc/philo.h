@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 14:08:55 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:12:57 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_program
 	int					num_of_philos;
 	long				num_times_to_eat;
 	char				**argv;
-
 	t_philo				*philos;
 }	t_program;
 

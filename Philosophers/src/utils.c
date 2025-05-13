@@ -6,13 +6,13 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:17:37 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/10 17:38:03 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/13 16:18:55 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-/*
+/**
  * @brief Prints status messages, protected by write_lock.
  * @param philo Philosopher performing the action.
  * @param status_msg The message (e.g., "is eating").
