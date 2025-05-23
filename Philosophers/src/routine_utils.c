@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 19:10:31 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 14:50:05 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/23 14:01:22 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ int	philo_is_sim_over(t_philo *data)
  * unlocking dead_lock (e.g., in handle_death). This check assumes write_lock
  * is already held by the caller (log_state).
  */
+/*
 static int	philo_check_dead_flag(t_philo *philo)
 {
 	if (*philo->dead_flag == 1)
 		return (1);
 	return (0);
 }
+*/
 
 /**
  * @brief Logs the philosopher's state with a timestamp, protected by a mutex.
@@ -50,8 +52,12 @@ void	philo_log_state(t_philo *philo, const char *state_msg)
 {
 	size_t	timestamp_ms;
 
+	if (philo_is_sim_over(philo))
+	{
+		return ;
+	}
 	pthread_mutex_lock(philo->write_lock);
-	if (philo_check_dead_flag(philo))
+	if (philo_is_sim_over(philo))
 	{
 		pthread_mutex_unlock(philo->write_lock);
 		return ;
