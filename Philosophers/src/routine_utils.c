@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 19:10:31 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/23 14:01:22 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:39:19 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ static int	philo_check_dead_flag(t_philo *philo)
  * @param philo Pointer to the philosopher's structure.
  * @param state_msg The message describing the state (e.g., "is eating").
  */
+/*
 void	philo_log_state(t_philo *philo, const char *state_msg)
 {
 	size_t	timestamp_ms;
-
+	
 	if (philo_is_sim_over(philo))
 	{
 		return ;
@@ -66,3 +67,60 @@ void	philo_log_state(t_philo *philo, const char *state_msg)
 	printf("%zu %d %s\n", timestamp_ms, philo->id, state_msg);
 	pthread_mutex_unlock(philo->write_lock);
 }
+*/
+
+void	philo_log_state(t_philo *philo, const char *state_msg)
+{
+	size_t	timestamp_ms;
+	int		sim_is_over;
+
+	pthread_mutex_lock(philo->dead_lock);
+	sim_is_over = *(philo->dead_flag);
+	if (!sim_is_over)
+	{
+		pthread_mutex_lock(philo->write_lock);
+		timestamp_ms = philo_get_time() - philo->start_time;
+		printf("%zu %d %s\n", timestamp_ms, philo->id, state_msg);
+		pthread_mutex_unlock(philo->write_lock);
+	}
+	pthread_mutex_unlock(philo->dead_lock);
+}
+
+
+// too slow
+/*
+void	philo_log_state(t_philo *philo, const char *state_msg)
+{
+	size_t	timestamp_ms;
+
+	pthread_mutex_lock(philo->dead_lock);
+	if (*(philo->dead_flag))
+	{
+		pthread_mutex_unlock(philo->dead_lock);
+		return;
+	}
+	pthread_mutex_lock(philo->write_lock);
+	timestamp_ms = philo_get_time() - philo->start_time;
+	printf("%zu %d %s\n", timestamp_ms, philo->id, state_msg);
+
+	pthread_mutex_unlock(philo->write_lock);
+	pthread_mutex_unlock(philo->dead_lock);
+}
+*/
+
+// philo die
+/*
+void	philo_log_state(t_philo *philo, const char *state_msg)
+{
+	size_t	timestamp_ms;
+
+	if (philo_is_sim_over(philo)) {
+		return;
+	}
+	pthread_mutex_lock(philo->write_lock);
+	timestamp_ms = philo_get_time() - philo->start_time;
+	printf("%zu %d %s\n", timestamp_ms, philo->id, state_msg);
+
+	pthread_mutex_unlock(philo->write_lock);
+}
+*/
