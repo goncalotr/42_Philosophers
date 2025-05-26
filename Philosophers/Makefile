@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/05/26 18:48:29 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/26 18:53:40 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,46 +132,46 @@ re:				fclean all
 #make helgrind ARGS="200 800 200 200"
 
 
-memcheck:		
-				@echo "$(BLUE)--- Ensuring standard build for Valgrind Memcheck ---$(RESET)"
-				@$(MAKE) --no-print-directory fclean # Ensure no old sanitized build
-				@$(MAKE) --no-print-directory all # Build standard version
-				@echo "$(BLUE)--- Running Valgrind Memcheck on ./$(NAME) ---$(RESET)"
-				@valgrind --leak-check=full \
-						  --show-leak-kinds=all \
-						  --track-origins=yes \
-						  --log-file=valgrind-memcheck.log \
-						  ./$(NAME) $(ARGS)
-				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
+#memcheck:		
+#				@echo "$(BLUE)--- Ensuring standard build for Valgrind Memcheck ---$(RESET)"
+#				@$(MAKE) --no-print-directory fclean # Ensure no old sanitized build
+#				@$(MAKE) --no-print-directory all # Build standard version
+#				@echo "$(BLUE)--- Running Valgrind Memcheck on ./$(NAME) ---$(RESET)"
+#				@valgrind --leak-check=full \
+#						  --show-leak-kinds=all \
+#						  --track-origins=yes \
+#						  --log-file=valgrind-memcheck.log \
+#						  ./$(NAME) $(ARGS)
+#				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
 
-helgrind:		
-				@echo "$(BLUE)--- Ensuring standard build for Valgrind Memcheck ---$(RESET)"
-				@$(MAKE) --no-print-directory fclean # Ensure no old sanitized build
-				@$(MAKE) --no-print-directory all # Build standard version
-				@echo "$(BLUE)--- Running Valgrind Memcheck on ./$(NAME) ---$(RESET)"
-				@valgrind --tool=helgrind \
-						  --history-level=approx \
-						  --log-file=valgrind-memcheck.log \
-						  ./$(NAME) $(ARGS)
-				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
+#helgrind:		
+#				@echo "$(BLUE)--- Ensuring standard build for Valgrind Memcheck ---$(RESET)"
+#				@$(MAKE) --no-print-directory fclean # Ensure no old sanitized build
+#				@$(MAKE) --no-print-directory all # Build standard version
+#				@echo "$(BLUE)--- Running Valgrind Memcheck on ./$(NAME) ---$(RESET)"
+#				@valgrind --tool=helgrind \
+#						  --history-level=approx \
+#						  --log-file=valgrind-memcheck.log \
+#						  ./$(NAME) $(ARGS)
+#				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
 
 # Sanitizer Build Targets
 
-sanitize:
-				@echo "$(BLUE)--- Building with General Sanitizers (ASan, LSan, UBSan) ---$(RESET)"
-				@$(MAKE) --no-print-directory fclean
-				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(GEN_SAN_FLAGS)" EXTRA_LINK_FLAGS="$(GEN_SAN_FLAGS)"
-				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with general sanitizers.$(RESET)"
-				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
+#sanitize:
+#				@echo "$(BLUE)--- Building with General Sanitizers (ASan, LSan, UBSan) ---$(RESET)"
+#				@$(MAKE) --no-print-directory fclean
+#				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(GEN_SAN_FLAGS)" EXTRA_LINK_FLAGS="$(GEN_SAN_FLAGS)"
+#				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with general sanitizers.$(RESET)"
+#				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
 
-tsan:
-				@echo "$(BLUE)--- Building with Thread Sanitizer (TSan) ---$(RESET)"
-				@$(MAKE) --no-print-directory fclean
-				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(TSAN_FLAGS)" EXTRA_LINK_FLAGS="$(TSAN_FLAGS)"
-				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with Thread Sanitizer.$(RESET)"
-				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
+#tsan:
+#				@echo "$(BLUE)--- Building with Thread Sanitizer (TSan) ---$(RESET)"
+#				@$(MAKE) --no-print-directory fclean
+#				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(TSAN_FLAGS)" EXTRA_LINK_FLAGS="$(TSAN_FLAGS)"
+#				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with Thread Sanitizer.$(RESET)"
+#				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
 
 # --- Phony Targets ---
-.PHONY:			all clean fclean re valgrind
+.PHONY:			all clean fclean re
 
 #.SILENT
