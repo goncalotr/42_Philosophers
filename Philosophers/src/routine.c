@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:47:58 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/26 17:09:11 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:13:00 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@ void	*philo_routine(void *arg)
 		fork_acquisition_status = philo_take_forks_ordered(philo);
 		if (fork_acquisition_status == 1)
 			break ;
-		//philo_take_forks_ordered(philo);
-		//if (philo_is_sim_over(philo))
-		//	philo_release_forks(philo);
-		//	break ;
-		//if (philo->num_of_philos == 1)
-		//	continue ;
 		if (philo_is_sim_over(philo))
 		{
 			philo_release_forks(philo);
@@ -51,7 +45,6 @@ void	*philo_routine(void *arg)
 		if (philo_is_sim_over(philo))
 			break;
 		philo_think(philo);
-		usleep(50);
 	}
 	return (NULL);
 }
