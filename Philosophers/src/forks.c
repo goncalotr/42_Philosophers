@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/26 16:54:12 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:06:31 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,20 @@ void	philo_release_forks(t_philo *philo)
 static void	philo_take_forks_aux(t_philo *philo, \
 	pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
 {
-	/*
+
 	if (philo->id % 2 == 0)
 	{
-		*first_fork_ptr = philo->right_fork;
-		*second_fork_ptr = philo->left_fork;
+		*first_fork_ptr = philo->fork_a;
+		*second_fork_ptr = philo->fork_b;
 	}
 	else
 	{
-		*first_fork_ptr = philo->left_fork;
-		*second_fork_ptr = philo->right_fork;
+		*first_fork_ptr = philo->fork_b;
+		*second_fork_ptr = philo->fork_a;
 	}
-	*/
 
+
+	/*
 	if (philo->fork_a < philo->fork_b) 
 	{
 		*first_fork_ptr = philo->fork_a;
@@ -58,6 +59,7 @@ static void	philo_take_forks_aux(t_philo *philo, \
 		*first_fork_ptr = philo->fork_b;
 		*second_fork_ptr = philo->fork_a;
 	}
+	*/
 }
 
 /**
@@ -92,7 +94,7 @@ int	philo_take_forks_ordered(t_philo *philo)
 	}
 	if (philo->num_of_philos == 1)
 	{
-		philo_usleep(philo, philo->time_to_die + 10);
+		philo_usleep(philo, philo->time_to_die + 10); //! change 10 ms
 		pthread_mutex_unlock(first_fork);
 		return (1);
 	}

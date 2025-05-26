@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 15:55:23 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:07:40 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 /**
  * Checks if a single philosopher has died.
  * Returns 1 if died, 0 otherwise. MUST be called with meal_lock held.
+ * 
+ * >= -> >
  */
 static int	philo_check_death(t_philo *philo)
 {
-	if ((philo_get_time() - philo->last_meal_time) >= philo->time_to_die)
+	if ((philo_get_time() - philo->last_meal_time) > philo->time_to_die)
 	{
 		return (1);
 	}
