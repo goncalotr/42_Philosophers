@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:09:50 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/12 15:27:41 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 00:15:03 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ static void	philo_destroy_shared_mutexes(t_program *program)
 void	philo_destroy_all(const char *msg, t_program *program, \
 							pthread_mutex_t *forks)
 {
-	int	i;
-	int	num_philos;
+	//int	i;
+	//int	num_philos;
 
-	i = 0;
+	//i = 0;
 	if (msg)
 	{
 		printf("Error: %s\n", msg);
@@ -75,7 +75,7 @@ void	philo_destroy_all(const char *msg, t_program *program, \
 	{
 		return ;
 	}
-	num_philos = program->num_of_philos;
+	//num_philos = program->num_of_philos;
 	if (forks)
 	{
 		philo_destroy_fork_mutexes(program, forks);
