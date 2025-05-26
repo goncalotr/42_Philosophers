@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/26 18:06:31 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/26 18:50:39 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	philo_take_forks_ordered(t_philo *philo)
 	}
 	if (philo->num_of_philos == 1)
 	{
-		philo_usleep(philo, philo->time_to_die + 10); //! change 10 ms
+		philo_usleep(philo, philo->time_to_die);
 		pthread_mutex_unlock(first_fork);
 		return (1);
 	}
