@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:34:45 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/10 17:35:31 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 00:42:12 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	philo_create_threads_loop(t_program *program)
 	while (i < program->num_of_philos)
 	{
 		if (pthread_create(&program->philos[i].thread, NULL, \
-				philo_routine, &program->philos[i]) != 0)
+philo_routine, &program->philos[i]) != 0)
 		{
 			pthread_mutex_lock(&program->dead_lock);
 			program->dead_flag = 1;

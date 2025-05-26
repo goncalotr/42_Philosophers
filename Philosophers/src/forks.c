@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/26 18:50:39 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 00:50:11 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ void	philo_release_forks(t_philo *philo)
  *                       to the first fork to lock.
  * @param second_fork_ptr Pointer to a pthread_mutex_t pointer, will be set
  *                        to the second fork to lock.
+ * 
+ * Alternative to if (philo->id % 2 == 0)
+ * if (philo->fork_a < philo->fork_b)
  */
 static void	philo_take_forks_aux(t_philo *philo, \
-	pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
+pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
 {
-
 	if (philo->id % 2 == 0)
 	{
 		*first_fork_ptr = philo->fork_a;
@@ -46,20 +48,6 @@ static void	philo_take_forks_aux(t_philo *philo, \
 		*first_fork_ptr = philo->fork_b;
 		*second_fork_ptr = philo->fork_a;
 	}
-
-
-	/*
-	if (philo->fork_a < philo->fork_b) 
-	{
-		*first_fork_ptr = philo->fork_a;
-		*second_fork_ptr = philo->fork_b;
-	}
-	else
-	{
-		*first_fork_ptr = philo->fork_b;
-		*second_fork_ptr = philo->fork_a;
-	}
-	*/
 }
 
 /**
@@ -73,6 +61,8 @@ static void	philo_take_forks_aux(t_philo *philo, \
  * 
  * Determine order based on fork address
  * (or index if forks are an array)
+ * 
+ * num philos = 1
  * 
  * philo_usleep(philo, philo->time_to_die * 2);
  * philo_usleep(philo, philo->time_to_die + 10);
@@ -101,7 +91,7 @@ int	philo_take_forks_ordered(t_philo *philo)
 	pthread_mutex_lock(second_fork);
 	if (philo_is_sim_over(philo))
 	{
-		pthread_mutex_unlock(second_fork); 
+		pthread_mutex_unlock(second_fork);
 		pthread_mutex_unlock(first_fork);
 		return (1);
 	}
