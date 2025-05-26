@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 18:48:57 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:54:12 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,33 +75,34 @@ static void	philo_take_forks_aux(t_philo *philo, \
  * philo_usleep(philo, philo->time_to_die * 2);
  * philo_usleep(philo, philo->time_to_die + 10);
  */
-void	philo_take_forks_ordered(t_philo *philo)
+int	philo_take_forks_ordered(t_philo *philo)
 {
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
 
 	philo_take_forks_aux(philo, &first_fork, &second_fork);
 	if (philo_is_sim_over(philo))
-		return ;
+		return (1);
 	pthread_mutex_lock(first_fork);
 	philo_log_state(philo, "has taken a fork");
 	if (philo_is_sim_over(philo))
 	{
 		pthread_mutex_unlock(first_fork);
-		return ;
+		return (1);
 	}
 	if (philo->num_of_philos == 1)
 	{
 		philo_usleep(philo, philo->time_to_die + 10);
 		pthread_mutex_unlock(first_fork);
-		return ;
+		return (1);
 	}
 	pthread_mutex_lock(second_fork);
 	if (philo_is_sim_over(philo))
 	{
 		pthread_mutex_unlock(second_fork); 
 		pthread_mutex_unlock(first_fork);
-		return ;
+		return (1);
 	}
 	philo_log_state(philo, "has taken a fork");
+	return (0);
 }

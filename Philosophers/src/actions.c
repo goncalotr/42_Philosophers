@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:43:40 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 17:59:12 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:08:23 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
  */
 void	philo_eat(t_philo *philo)
 {
-	if (philo_is_sim_over(philo))
-	{
-		philo_release_forks(philo);
-		return ;
-	}
+	//if (philo_is_sim_over(philo))
+	//{
+	//	philo_release_forks(philo);
+	//	return ;
+	//}
 	//sleep
 	philo_log_state(philo, "is eating");
 	pthread_mutex_lock(philo->meal_lock);
@@ -55,7 +55,6 @@ void	philo_sleep(t_philo *philo)
 		return ;
 	}
 	philo_log_state(philo, "is sleeping");
- 	//philo_usleep(philo, 500);
 	philo_usleep(philo, philo->time_to_sleep);
 }
 
@@ -76,5 +75,5 @@ void	philo_think(t_philo *philo)
 		return ;
 	}
 	philo_log_state(philo, "is thinking");
- 	//usleep(500);
+ 	usleep(500);
 }

@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 17:19:09 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:48:36 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	philo_monitor_sim(t_program *program);
 
 // --- forks.c ---
 void	philo_release_forks(t_philo *philo);
-void	philo_take_forks_ordered(t_philo *philo);
+int		philo_take_forks_ordered(t_philo *philo);
 
 // --- threads.c ---
 int		philo_thread_create(t_program *program, pthread_mutex_t *forks);
