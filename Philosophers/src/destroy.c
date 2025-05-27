@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:09:50 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 00:43:49 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 12:48:13 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ pthread_mutex_t *forks)
 /**
  * Helper function to destroy shared mutexes within the program struct.
  */
-static void	philo_destroy_shared_mutexes(t_program *program)
+static void	philo_destroy_struct_mutexes(t_program *program)
 {
 	pthread_mutex_destroy(&program->dead_lock);
 	pthread_mutex_destroy(&program->meal_lock);
@@ -67,13 +67,21 @@ pthread_mutex_t *forks)
 	{
 		printf("Error: %s\n", msg);
 	}
-	if (!program)
+	if (program)
 	{
-		return ;
+		if (forks && program->num_of_philos > 0)
+			philo_destroy_fork_mutexes(program, forks);
+		philo_destroy_struct_mutexes(program);
+		if (program->philos)
+		{
+			free(program->philos);
+			program->philos = NULL;
+		}
 	}
 	if (forks)
 	{
 		philo_destroy_fork_mutexes(program, forks);
+		free(forks);
 	}
-	philo_destroy_shared_mutexes(program);
+	philo_destroy_struct_mutexes(program);
 }

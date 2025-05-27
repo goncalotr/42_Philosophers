@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/05/27 11:31:08 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/27 13:23:21 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,6 +130,7 @@ re:				fclean all
 #make memcheck ARGS="4 410 200 200"
 #make helgrind ARGS="200 800 200 200"
 
+#						--log-file=valgrind-memcheck.log
 
 #memcheck:		
 #				@echo "$(BLUE)--- Ensuring standard build for Valgrind Memcheck ---$(RESET)"
@@ -139,9 +140,10 @@ re:				fclean all
 #				@valgrind --leak-check=full \
 #						  --show-leak-kinds=all \
 #						  --track-origins=yes \
-#						  --log-file=valgrind-memcheck.log \
 #						  ./$(NAME) $(ARGS)
-#				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
+##				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
+
+#						  --log-file=valgrind-memcheck.log \
 
 #helgrind:		
 #				@echo "$(BLUE)--- Ensuring standard build for Valgrind Memcheck ---$(RESET)"
@@ -150,9 +152,8 @@ re:				fclean all
 #				@echo "$(BLUE)--- Running Valgrind Memcheck on ./$(NAME) ---$(RESET)"
 #				@valgrind --tool=helgrind \
 #						  --history-level=approx \
-#						  --log-file=valgrind-memcheck.log \
 #						  ./$(NAME) $(ARGS)
-#				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
+##				@echo "$(BLUE)Memcheck log created: valgrind-memcheck.log$(RESET)"
 
 # Sanitizer Build Targets
 
