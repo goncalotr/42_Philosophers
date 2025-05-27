@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 00:50:59 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 13:30:22 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	philo_init_program(t_program *program, t_philo *philos,\
 	program->philos = philos;
 	program->argv = argv;
 	program->dead_flag = 0;
-	program->num_of_philos = ft_atol(argv[1]);
 	program->num_times_to_eat = -1;
 	if (argc == 6)
 	{
