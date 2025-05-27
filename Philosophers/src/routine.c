@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:47:58 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 01:00:12 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:00:33 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,14 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 != 0)
+	if (philo->num_of_philos == 1)
 	{
 		philo_usleep(philo, 1);
+	}
+	else if (philo->id % 2 != 0)
+	{
 		philo_think(philo);
+		philo_usleep(philo, 1);
 	}
 	while (true)
 	{
