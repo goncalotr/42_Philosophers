@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 11:35:30 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 13:35:42 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define BLUE		"\033[34m"
 # define WHITE		"\033[37m"
 
-# define PHILO_MAX 200
+# define PHILO_MAX 300
 # define USLEEP_CHECK_INTERVAL 1 // in miliseconds, check every ms
 
 /**************************************************************************
