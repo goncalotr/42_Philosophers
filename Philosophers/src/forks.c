@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 00:50:11 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 00:52:41 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ int	philo_take_forks_ordered(t_philo *philo)
 	pthread_mutex_lock(first_fork);
 	philo_log_state(philo, "has taken a fork");
 	if (philo_is_sim_over(philo))
-	{
-		pthread_mutex_unlock(first_fork);
-		return (1);
-	}
+		return (pthread_mutex_unlock(first_fork), 1);
 	if (philo->num_of_philos == 1)
 	{
 		philo_usleep(philo, philo->time_to_die);
