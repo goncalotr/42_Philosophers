@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 15:29:59 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:04:31 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	philo_check_valid_args(int argc, char **argv)
 	{
 		temp_val = ft_atol(argv[i]);
 		if (temp_val == -1)
-			return (philo_error_msg("Arguments must be positive integers."));
-		if (temp_val == 0 && i == 1)
+			return (philo_error_msg("Arguments must be valid."));
+		if (temp_val <= 0 && i == 1)
 			return (philo_error_msg("Number of philosophers must be > 0."));
 		if (temp_val > INT_MAX)
 			return (philo_error_msg("Argument value too large."));
-		if (i == 1 && (temp_val > PHILO_MAX || temp_val <= 0))
+		if (i == 1 && (temp_val > PHILO_MAX))
 			return \
-	(philo_error_msg("Number of philosophers negative or above PHILO_MAX."));
+	(philo_error_msg("Number of philosophers above PHILO_MAX."));
 		if (i >= 2 && temp_val < 0)
 			return \
 	(philo_error_msg("Time arguments and meal count must be non-negative."));
