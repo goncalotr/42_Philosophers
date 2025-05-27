@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 13:30:22 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 13:39:50 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	philo_check_valid_args(int argc, char **argv)
 			return (philo_error_msg("Argument value too large."));
 		if (i == 1 && temp_val > PHILO_MAX)
 			return \
-(philo_error_msg("Number of philosophers exceeds PHILO_MAX."));
+	(philo_error_msg("Number of philosophers exceeds PHILO_MAX."));
 		i++;
 	}
 	return (0);
@@ -48,8 +48,8 @@ int	philo_check_valid_args(int argc, char **argv)
  * 
  * num_times_to_eat = -1 -> default: no meal limit
  */
-int	philo_init_program(t_program *program, t_philo *philos,\
-		int argc, char **argv)
+int	philo_init_program(t_program *program, t_philo *philos, \
+int argc, char **argv)
 {
 	program->philos = philos;
 	program->argv = argv;
@@ -103,8 +103,8 @@ int	philo_init_forks(pthread_mutex_t *forks, int num_philosophers)
  * left_fork => fork_a
  * right_fork -> fork_b
  */
-static void	philo_init_philos_aux(t_program *program,\
-		pthread_mutex_t *forks, int i, size_t start_time)
+static void	philo_init_philos_aux(t_program *program, \
+pthread_mutex_t *forks, int i, size_t start_time)
 {
 	program->philos[i].id = i + 1;
 	program->philos[i].eating = 0;
@@ -123,7 +123,7 @@ static void	philo_init_philos_aux(t_program *program,\
 	program->philos[i].dead_flag = &program->dead_flag;
 	program->philos[i].fork_a = &forks[i];
 	program->philos[i].fork_b = &forks[(i + 1) \
-% program->num_of_philos];
+	% program->num_of_philos];
 }
 
 /**
