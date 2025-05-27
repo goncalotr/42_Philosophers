@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 16:41:58 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:57:40 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,10 +152,10 @@ int i, size_t start_time)
  */
 int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 {
-	int		i;
-	size_t	start_time;
-	pthread_mutex_t *left_f;
-	pthread_mutex_t *right_f;
+	int				i;
+	size_t			start_time;
+	pthread_mutex_t	*left_f;
+	pthread_mutex_t	*right_f;
 
 	start_time = philo_get_time();
 	i = 0;
