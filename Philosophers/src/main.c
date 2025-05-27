@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:46:03 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 14:41:14 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:47:23 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	philo_alloc_philos(int num_philos, t_philo **philos_ptr)
 	*philos_ptr = malloc(sizeof(t_philo) * num_philos);
 	if (!(*philos_ptr))
 	{
-		philo_error_msg("Error: Failed to allocate memory for philosophers.");
+		philo_error_msg("Failed to allocate memory for philosophers.");
 		return (1);
 	}
 	return (0);
@@ -57,7 +57,7 @@ pthread_mutex_t **forks)
 		return (1);
 	}
 	if (philo_init_philos(program, *forks) != 0)
-		return (philo_destroy_all("Error: \
+		return (philo_destroy_all("\
 Philosopher init failed", program, *forks), 1);
 	return (0);
 }
@@ -84,7 +84,7 @@ int	main(int argc, char **argv)
 		return (1);
 	program.num_of_philos = ft_atol(argv[1]);
 	if (program.num_of_philos == 0)
-		return (philo_error_msg("Error: \
+		return (philo_error_msg("\
 Number of philosophers cannot be zero."), 1);
 	if (philo_init_allocations(program.num_of_philos, &philos, &forks))
 		return (1);
