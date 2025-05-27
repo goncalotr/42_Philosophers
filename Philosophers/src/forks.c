@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 00:52:41 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:45:07 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
  * 
  * philo_usleep(philo, philo->time_to_die * 2);
  * philo_usleep(philo, philo->time_to_die + 10);
+ *
+ * philo_take_forks_aux becomes trivial or can be removed
+ * philo_take_forks_ordered directly uses philo->fork_a and philo->fork_b
  */
 int	philo_take_forks_ordered(t_philo *philo)
 {
@@ -75,21 +78,21 @@ int	philo_take_forks_ordered(t_philo *philo)
 	philo_take_forks_aux(philo, &first_fork, &second_fork);
 	if (philo_is_sim_over(philo))
 		return (1);
-	pthread_mutex_lock(first_fork);
+	pthread_mutex_lock(philo->fork_a);
 	philo_log_state(philo, "has taken a fork");
 	if (philo_is_sim_over(philo))
-		return (pthread_mutex_unlock(first_fork), 1);
+		return (pthread_mutex_unlock(philo->fork_a), 1);
 	if (philo->num_of_philos == 1)
 	{
 		philo_usleep(philo, philo->time_to_die);
-		pthread_mutex_unlock(first_fork);
+		pthread_mutex_unlock(philo->fork_a);
 		return (1);
 	}
-	pthread_mutex_lock(second_fork);
+	pthread_mutex_lock(philo->fork_b);
 	if (philo_is_sim_over(philo))
 	{
-		pthread_mutex_unlock(second_fork);
-		pthread_mutex_unlock(first_fork);
+		pthread_mutex_unlock(philo->fork_b);
+		pthread_mutex_unlock(philo->fork_a);
 		return (1);
 	}
 	philo_log_state(philo, "has taken a fork");

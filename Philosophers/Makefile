@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/05/27 16:09:38 by goteixei         ###   ########.fr        #
+#    Updated: 2025/05/27 16:21:52 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -164,12 +164,12 @@ re:				fclean all
 #				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with general sanitizers.$(RESET)"
 #				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
 
-#tsan:
-#				@echo "$(BLUE)--- Building with Thread Sanitizer (TSan) ---$(RESET)"
-#				@$(MAKE) --no-print-directory fclean
-#				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(TSAN_FLAGS)" EXTRA_LINK_FLAGS="$(TSAN_FLAGS)"
-#				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with Thread Sanitizer.$(RESET)"
-#				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
+tsan:
+				@echo "$(BLUE)--- Building with Thread Sanitizer (TSan) ---$(RESET)"
+				@$(MAKE) --no-print-directory fclean
+				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(TSAN_FLAGS)" EXTRA_LINK_FLAGS="$(TSAN_FLAGS)"
+				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with Thread Sanitizer.$(RESET)"
+				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
 
 # --- Phony Targets ---
 .PHONY:			all clean fclean re

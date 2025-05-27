@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 16:04:31 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:41:58 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,16 @@ int	philo_init_forks(pthread_mutex_t *forks, int num_philosophers)
 /**
  * left_fork => fork_a
  * right_fork -> fork_b
+ * 
+ * removed from end of function:
+ *	program->philos[i].fork_a = &forks[i];
+ *	program->philos[i].fork_b = &forks[(i + 1) \
+ *	% program->num_of_philos];
+ *
+ * pthread_mutex_t *forks,
  */
 static void	philo_init_philos_aux(t_program *program, \
-pthread_mutex_t *forks, int i, size_t start_time)
+int i, size_t start_time)
 {
 	program->philos[i].id = i + 1;
 	program->philos[i].eating = 0;
@@ -124,9 +131,6 @@ pthread_mutex_t *forks, int i, size_t start_time)
 	program->philos[i].dead_lock = &program->dead_lock;
 	program->philos[i].meal_lock = &program->meal_lock;
 	program->philos[i].dead_flag = &program->dead_flag;
-	program->philos[i].fork_a = &forks[i];
-	program->philos[i].fork_b = &forks[(i + 1) \
-	% program->num_of_philos];
 }
 
 /**
@@ -137,22 +141,38 @@ pthread_mutex_t *forks, int i, size_t start_time)
  * assign forks
  * left philo ID
  * right next philo ID
+ * 
+ * before left_f < right_f:
+ * 		if (program->philos[i].id % 2 == 0)
+		{
+			program->philos[i].fork_a = \
+&forks[(i + 1) % program->num_of_philos];
+			program->philos[i].fork_b = &forks[i];
+		}
  */
 int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 {
 	int		i;
 	size_t	start_time;
+	pthread_mutex_t *left_f;
+	pthread_mutex_t *right_f;
 
 	start_time = philo_get_time();
 	i = 0;
 	while (i < program->num_of_philos)
 	{
-		philo_init_philos_aux(program, forks, i, start_time);
-		if (program->philos[i].id % 2 == 0)
+		philo_init_philos_aux(program, i, start_time);
+		left_f = &forks[i];
+		right_f = &forks[(i + 1) % program->num_of_philos];
+		if (left_f < right_f)
 		{
-			program->philos[i].fork_a = \
-&forks[(i + 1) % program->num_of_philos];
-			program->philos[i].fork_b = &forks[i];
+			program->philos[i].fork_a = left_f;
+			program->philos[i].fork_b = right_f;
+		}
+		else
+		{
+			program->philos[i].fork_a = right_f;
+			program->philos[i].fork_b = left_f;
 		}
 		i++;
 	}
