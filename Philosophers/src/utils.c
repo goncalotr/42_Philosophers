@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:17:37 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/13 16:18:55 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:32:06 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	philo_print_status(t_philo *philo, char *status_msg, int unlock_write)
 		pthread_mutex_unlock(&philo->program->write_lock);
 }
 
-int	philo_error_msg(char *str)
+int	philo_error_msg(const char *str)
 {
 	write(2, "Error: ", 7);
 	write(2, str, ft_strlen(str));

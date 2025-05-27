@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 00:36:51 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:33:32 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,8 @@ int		philo_usleep(t_philo *philo, size_t total_ms);
 size_t	philo_get_time(void);
 
 // --- utils.c ---
-int		philo_error_msg(char *str);
-int		ft_strlen(char *str);
+int		philo_error_msg(const char *str);
+int		ft_strlen(const char *str);
 int		ft_atol(char *str);
 
 // Other functions

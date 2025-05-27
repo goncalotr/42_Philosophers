@@ -6,13 +6,13 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:05:21 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/12 15:53:58 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:33:19 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	ft_strlen(char *str)
+int	ft_strlen(const char *str)
 {
 	int	i;
 
