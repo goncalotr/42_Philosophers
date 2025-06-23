@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 17:36:22 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:52:03 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  */
 static int	philo_check_death(t_philo *philo)
 {
-	if ((philo_get_time() - philo->last_meal_time) > philo->time_to_die)
+	if ((philo_get_time() - philo->last_meal_time) >= philo->time_to_die)
 	{
 		return (1);
 	}
