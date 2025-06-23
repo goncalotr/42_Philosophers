@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:05:21 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 11:35:33 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:28:20 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_atol(char *str)
 	number = 0;
 	sign = 1;
 	i = 0;
-	ft_atol_aux(str, i);
+	i = ft_atol_aux(str, i);
 	if (str[i] == '-')
 		sign = -1;
 	if (str[i] == '-' || str[i] == '+')
