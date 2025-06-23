@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 16:57:40 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:54:41 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	philo_check_valid_args(int argc, char **argv)
 			return (philo_error_msg("Argument value too large."));
 		if (i == 1 && (temp_val > PHILO_MAX))
 			return \
-	(philo_error_msg("Number of philosophers above PHILO_MAX."));
+(philo_error_msg("Number of philosophers above PHILO_MAX."));
 		if (i >= 2 && temp_val < 0)
 			return \
-	(philo_error_msg("Time arguments and meal count must be non-negative."));
+(philo_error_msg("Time arguments and meal count must be non-negative."));
 		i++;
 	}
 	return (0);
