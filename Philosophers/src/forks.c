@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 17:30:39 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:36:30 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	philo_release_forks(t_philo *philo)
  * Alternative to if (philo->id % 2 == 0)
  * if (philo->fork_a < philo->fork_b)
  */
+/*
 static void	philo_take_forks_aux(t_philo *philo, \
 pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
 {
@@ -49,6 +50,7 @@ pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
 		*second_fork_ptr = philo->fork_a;
 	}
 }
+*/
 
 /**
  * @brief Attempts to acquire both left and right forks using an ordered
@@ -72,10 +74,10 @@ pthread_mutex_t	**first_fork_ptr, pthread_mutex_t	**second_fork_ptr)
  */
 int	philo_take_forks_ordered(t_philo *philo)
 {
-	pthread_mutex_t	*first_fork;
-	pthread_mutex_t	*second_fork;
+	//pthread_mutex_t	*first_fork;
+	//pthread_mutex_t	*second_fork;
 
-	philo_take_forks_aux(philo, &first_fork, &second_fork);
+	//philo_take_forks_aux(philo, &first_fork, &second_fork);
 	if (philo_is_sim_over(philo))
 		return (1);
 	pthread_mutex_lock(philo->fork_a);
