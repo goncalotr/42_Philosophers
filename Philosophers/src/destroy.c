@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:09:50 by goteixei          #+#    #+#             */
-/*   Updated: 2025/06/27 13:53:03 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:16:03 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * the forks array was allocated on the stack in main
  */
 static void	philo_destroy_fork_mutexes(t_program *program, \
-pthread_mutex_t *forks)
+	pthread_mutex_t *forks)
 {
 	int	i;
 
@@ -34,14 +34,28 @@ pthread_mutex_t *forks)
 	}
 }
 
-/**
- * Helper function to destroy shared mutexes within the program struct.
- */
-static void	philo_destroy_struct_mutexes(t_program *program)
+static void	philo_destroy_program_mutexes(t_program *program)
 {
 	pthread_mutex_destroy(&program->dead_lock);
-	//	pthread_mutex_destroy(&program->meal_lock);
 	pthread_mutex_destroy(&program->write_lock);
+}
+
+static void	philo_destroy_philos(t_program *program)
+{
+	int	i;
+
+	if (!program->philos)
+		return ;
+	i = 0;
+	// Loop to destroy each philo's personal lock
+	while (i < program->num_of_philos)
+	{
+		pthread_mutex_destroy(&program->philos[i].lock);
+		i++;
+	}
+	// Then free the memory for the philos array
+	free(program->philos);
+	program->philos = NULL;
 }
 
 /**
@@ -63,26 +77,14 @@ static void	philo_destroy_struct_mutexes(t_program *program)
 void	philo_destroy_all(const char *msg, t_program *program, \
 pthread_mutex_t *forks)
 {
-	int	i;
-
-	if (msg)
+ 	if (msg)
 		philo_error_msg(msg);
 	if (program)
 	{
 		if (forks && program->num_of_philos > 0)
 			philo_destroy_fork_mutexes(program, forks);
-		philo_destroy_struct_mutexes(program);
-		if (program->philos)
-		{
-			i = 0;
-			while (i < program->num_of_philos)
-			{
-				pthread_mutex_destroy(&program->philos[i].lock);
-				i++;
-			}
-			free(program->philos);
-			program->philos = NULL;
-		}
+		philo_destroy_program_mutexes(program);
+		philo_destroy_philos(program);
 	}
 	if (forks)
 	{
