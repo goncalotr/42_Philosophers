@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/06/27 13:42:35 by goteixei         ###   ########.fr        #
+#    Updated: 2025/06/27 14:53:13 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ MANDATORY_SRC	= $(SRC_DIR)init.c\
 				  $(SRC_DIR)destroy.c\
 				  $(SRC_DIR)forks.c\
 				  $(SRC_DIR)monitor.c\
+				  $(SRC_DIR)monitor_aux.c\
 				  $(SRC_DIR)routine.c\
 				  $(SRC_DIR)routine_utils.c\
 				  $(SRC_DIR)threads.c\
@@ -127,8 +128,8 @@ re:				fclean all
 # Rule to use valgrind
 # Example:
 
-#make memcheck ARGS="4 410 200 200"
-#make helgrind ARGS="200 800 200 200"
+#make re_memcheck ARGS="4 410 200 200"
+#make re_helgrind ARGS="200 800 200 200"
 
 #						--log-file=valgrind-memcheck.log
 
@@ -159,7 +160,7 @@ re_helgrind:
 
 re_sanitize:
 				@echo "$(BLUE)--- Building with General Sanitizers (ASan, LSan, UBSan) ---$(RESET)"
-				@$(MAKE) --no-print-directory fclean
+				@$(MAKE) --no-print-directory fclea
 				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(GEN_SAN_FLAGS)" EXTRA_LINK_FLAGS="$(GEN_SAN_FLAGS)"
 				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with general sanitizers.$(RESET)"
 				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"

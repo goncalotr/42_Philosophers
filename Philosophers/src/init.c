@@ -6,42 +6,11 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/06/27 13:48:35 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/27 14:51:59 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
-/*
- * @brief Checks if the command line arguments are valid numbers and counts.
- * @return 0 on success, 1 on error.
- */
-int	philo_check_valid_args(int argc, char **argv)
-{
-	long	temp_val;
-	int		i;
-
-	if (argc < 5 || argc > 6)
-		return (philo_error_msg("Wrong number of arguments."\
-"Usage: ./philo num_philo time_die time_eat time_sleep [num_meals]"));
-	i = 1;
-	while (i < argc)
-	{
-		temp_val = ft_atol(argv[i]);
-		if (temp_val == -1)
-			return (philo_error_msg("Arguments must be valid."));
-		if (temp_val <= 0 && i == 1)
-			return (philo_error_msg("Number of philosophers must be > 0."));
-		if (temp_val > INT_MAX)
-			return (philo_error_msg("Argument value too large."));
-		if (i == 1 && (temp_val > PHILO_MAX))
-			return (philo_error_msg("Number of philosophers above PHILO_MAX."));
-		if (i >= 2 && temp_val < 0)
-			return (philo_error_msg("Time arguments/meals can't be negative"));
-		i++;
-	}
-	return (0);
-}
 
 /*
  * @brief Initializes the main program structure (mutexes, flags, args).
@@ -124,6 +93,27 @@ int i, size_t start_time)
 	program->philos[i].dead_flag = &program->dead_flag;
 }
 
+static void	assign_forks(t_philo *philo, pthread_mutex_t *forks, int i)
+{
+	pthread_mutex_t	*left_f;
+	pthread_mutex_t	*right_f;
+	int				num_philos;
+
+	num_philos = philo->num_of_philos;
+	left_f = &forks[i];
+	right_f = &forks[(i + 1) % num_philos];
+	if (left_f < right_f)
+	{
+		philo->fork_a = left_f;
+		philo->fork_b = right_f;
+	}
+	else
+	{
+		philo->fork_a = right_f;
+		philo->fork_b = left_f;
+	}
+}
+
 /**
  * @brief Initializes each philosopher's state.
  * Assumes program and forks are already successfully initialized.
@@ -136,8 +126,6 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 {
 	int				i;
 	size_t			start_time;
-	pthread_mutex_t	*left_f;
-	pthread_mutex_t	*right_f;
 
 	start_time = philo_get_time();
 	i = 0;
@@ -150,18 +138,7 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 				pthread_mutex_destroy(&program->philos[i].lock);
 			return (philo_error_msg("Failed to init philo lock"));
 		}
-		left_f = &forks[i];
-		right_f = &forks[(i + 1) % program->num_of_philos];
-		if (left_f < right_f)
-		{
-			program->philos[i].fork_a = left_f;
-			program->philos[i].fork_b = right_f;
-		}
-		else
-		{
-			program->philos[i].fork_a = right_f;
-			program->philos[i].fork_b = left_f;
-		}
+		assign_forks(&program->philos[i], forks, i);
 		i++;
 	}
 	return (0);
