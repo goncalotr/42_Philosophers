@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:43:40 by goteixei          #+#    #+#             */
-/*   Updated: 2025/06/23 18:56:30 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:05:13 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@
  */
 void	philo_eat(t_philo *philo)
 {
+	/*
+	philo_log_state(philo, "is eating");
+	pthread_mutex_lock(philo->meal_lock);
+	philo->last_meal_time = philo_get_time();
+	pthread_mutex_unlock(philo->meal_lock);
+	philo_usleep(philo, philo->time_to_eat);
+	pthread_mutex_lock(philo->meal_lock);
+	philo->meals_eaten++;
+	pthread_mutex_unlock(philo->meal_lock);
+	philo_release_forks(philo);
+	*/
+	
+	
 	philo_log_state(philo, "is eating");
 	pthread_mutex_lock(philo->meal_lock);
 	philo->last_meal_time = philo_get_time();
@@ -32,6 +45,7 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(philo->meal_lock);
 	philo_usleep(philo, philo->time_to_eat);
 	philo_release_forks(philo);
+	
 }
 
 /**
@@ -69,5 +83,9 @@ void	philo_think(t_philo *philo)
 		return ;
 	}
 	philo_log_state(philo, "is thinking");
-	usleep(1);
+	//usleep(100);
+	if (philo->id % 2 == 0)
+		usleep(250);
+	else
+		usleep(500);
 }
