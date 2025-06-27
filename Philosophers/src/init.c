@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:29:17 by goteixei          #+#    #+#             */
-/*   Updated: 2025/06/23 18:54:41 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:27:55 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,17 @@ int argc, char **argv)
 	}
 	if (pthread_mutex_init(&program->dead_lock, NULL) != 0)
 		return (philo_error_msg("Mutex init failed (dead_lock)"));
+	/*
 	if (pthread_mutex_init(&program->meal_lock, NULL) != 0)
 	{
 		pthread_mutex_destroy(&program->dead_lock);
 		return (philo_error_msg("Mutex init failed (meal_lock)"));
 	}
+	*/
 	if (pthread_mutex_init(&program->write_lock, NULL) != 0)
 	{
 		pthread_mutex_destroy(&program->dead_lock);
-		pthread_mutex_destroy(&program->meal_lock);
+		//pthread_mutex_destroy(&program->meal_lock);
 		return (philo_error_msg("Mutex init failed (write_lock)"));
 	}
 	return (0);
@@ -129,7 +131,7 @@ int i, size_t start_time)
 	program->philos[i].program = program;
 	program->philos[i].write_lock = &program->write_lock;
 	program->philos[i].dead_lock = &program->dead_lock;
-	program->philos[i].meal_lock = &program->meal_lock;
+	//program->philos[i].meal_lock = &program->meal_lock;
 	program->philos[i].dead_flag = &program->dead_flag;
 }
 
@@ -162,6 +164,15 @@ int	philo_init_philos(t_program *program, pthread_mutex_t *forks)
 	while (i < program->num_of_philos)
 	{
 		philo_init_philos_aux(program, i, start_time);
+				philo_init_philos_aux(program, i, start_time);
+		if (pthread_mutex_init(&program->philos[i].lock, NULL) != 0)
+		{
+			// Error handling: if this fails, we must destroy all previously
+			// created personal locks before returning.
+			while (--i >= 0)
+				pthread_mutex_destroy(&program->philos[i].lock);
+			return (philo_error_msg("Failed to init philo lock"));
+		}
 		left_f = &forks[i];
 		right_f = &forks[(i + 1) % program->num_of_philos];
 		if (left_f < right_f)

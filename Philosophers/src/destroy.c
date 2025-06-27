@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:09:50 by goteixei          #+#    #+#             */
-/*   Updated: 2025/05/27 16:58:03 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:29:04 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ pthread_mutex_t *forks)
 static void	philo_destroy_struct_mutexes(t_program *program)
 {
 	pthread_mutex_destroy(&program->dead_lock);
-	pthread_mutex_destroy(&program->meal_lock);
+	//	pthread_mutex_destroy(&program->meal_lock);
 	pthread_mutex_destroy(&program->write_lock);
 }
 
@@ -63,6 +63,8 @@ static void	philo_destroy_struct_mutexes(t_program *program)
 void	philo_destroy_all(const char *msg, t_program *program, \
 pthread_mutex_t *forks)
 {
+	int i = 0;
+
 	if (msg)
 	{
 		philo_error_msg(msg);
@@ -74,6 +76,12 @@ pthread_mutex_t *forks)
 		philo_destroy_struct_mutexes(program);
 		if (program->philos)
 		{
+			i = 0;
+			while (i < program->num_of_philos)
+			{
+				pthread_mutex_destroy(&program->philos[i].lock);
+				i++;
+			}
 			free(program->philos);
 			program->philos = NULL;
 		}

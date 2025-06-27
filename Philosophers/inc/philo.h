@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/06/23 18:54:18 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:14:49 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef struct s_philo
 	pthread_mutex_t		*fork_b;
 	pthread_mutex_t		*write_lock;
 	pthread_mutex_t		*dead_lock;
-	pthread_mutex_t		*meal_lock;
+	//pthread_mutex_t		*meal_lock;
+	pthread_mutex_t		lock;
 	int					*dead_flag;
 	struct s_program	*program;
 }	t_philo;
@@ -80,7 +81,7 @@ typedef struct s_program
 {
 	int					dead_flag;
 	pthread_mutex_t		dead_lock;
-	pthread_mutex_t		meal_lock;
+	//pthread_mutex_t		meal_lock;
 	pthread_mutex_t		write_lock;
 	int					num_of_philos;
 	long				num_times_to_eat;

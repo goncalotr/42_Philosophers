@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:48:08 by goteixei          #+#    #+#             */
-/*   Updated: 2025/06/23 18:52:03 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/27 12:20:17 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,12 @@ static int	philo_check_stop_conditions(t_program *program, int *all_ate_flag)
 	*all_ate_flag = (program->num_times_to_eat != -1);
 	while (i < program->num_of_philos)
 	{
-		pthread_mutex_lock(&program->meal_lock);
+		//pthread_mutex_lock(&program->meal_lock);
+		pthread_mutex_lock(&program->philos[i].lock);
 		if (philo_check_death(&program->philos[i]))
 		{
-			pthread_mutex_unlock(&program->meal_lock);
+			//pthread_mutex_unlock(&program->meal_lock);
+			pthread_mutex_unlock(&program->philos[i].lock);
 			return (philo_handle_death(program, i));
 		}
 		if (program->num_times_to_eat != -1 && \
@@ -94,7 +96,8 @@ program->philos[i].meals_eaten < (size_t)program->num_times_to_eat)
 		{
 			*all_ate_flag = 0;
 		}
-		pthread_mutex_unlock(&program->meal_lock);
+		//pthread_mutex_unlock(&program->meal_lock);
+		pthread_mutex_lock(&program->philos[i].lock);
 		i++;
 	}
 	if (philo_check_stop_conditions_aux(program, all_ate_flag))
