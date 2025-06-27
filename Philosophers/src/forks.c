@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 00:38:57 by goteixei          #+#    #+#             */
-/*   Updated: 2025/06/23 18:38:53 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:28:56 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	philo_take_forks_ordered(t_philo *philo)
 		return (pthread_mutex_unlock(philo->fork_a), 1);
 	if (philo->num_of_philos == 1)
 	{
-		philo_usleep(philo, philo->time_to_die);
+		philo_usleep(philo, philo->time_to_die + 10);
 		pthread_mutex_unlock(philo->fork_a);
 		return (1);
 	}
