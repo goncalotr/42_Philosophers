@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:44:13 by goteixei          #+#    #+#             */
-/*   Updated: 2025/06/27 12:04:25 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:52:19 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,42 +33,18 @@ int	philo_usleep_simple(size_t us)
  * waiting in the same loop iteration
  * 
  * Note: usleep works with microseconds us
+ * usleep(500)
  */
-/*
 int	philo_usleep(t_philo *philo, size_t total_ms)
 {
 	size_t	start_time_ms;
-	size_t	elapsed_ms;
 
-	start_time_ms = philo_get_time();
-	while (1)
-	{
-		if (philo_is_sim_over(philo))
-			return (1);
-		elapsed_ms = philo_get_time() - start_time_ms;
-		if (elapsed_ms >= total_ms)
-			break ;
-		if (total_ms - elapsed_ms < (USLEEP_CHECK_INTERVAL))
-			usleep((total_ms - elapsed_ms) * 1000);
-		else
-			usleep(USLEEP_CHECK_INTERVAL * 1000);
-	}
-	return (0);
-}
-*/
-
-int philo_usleep(t_philo *philo, size_t total_ms)
-{
-	size_t start_time_ms;
-	
 	start_time_ms = philo_get_time();
 	while (philo_get_time() - start_time_ms < total_ms)
 	{
 		if (philo_is_sim_over(philo))
 			return (1);
-		// Sleep for a very short duration. 500 microseconds is a good balance
-		// between responsiveness and not burning too much CPU.
-		usleep(500);
+		usleep(100);
 	}
 	return (0);
 }
