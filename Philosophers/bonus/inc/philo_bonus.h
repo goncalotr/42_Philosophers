@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:35:32 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:37:33 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_program
 
 // --- main_bonus.c ---
 int		main(int argc, char **argv);
-void	*waiter_routine(void *arg);
+void	*philo_waiter_routine(void *arg);
 
 // --- init_bonus.c ---
 int		philo_init_program(t_program *program, int argc, char **argv);
