@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/06/27 14:53:13 by goteixei         ###   ########.fr        #
+#    Updated: 2025/07/04 15:46:55 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ FOLDER			= 📁
 SPARKLES		= ✨
 
 # --- Program Name ---
-NAME 			= philo
+NAME 			= philo_bonus
 
 # Directories
 INC_DIR			= inc/
@@ -66,19 +66,12 @@ LDFLAGS			= $(BASE_LDFLAGS) $(EXTRA_LINK_FLAGS)
 # -------------------------------------------------------------
 
 #MANDATORY_SRC	= $(MANDATORY_DIR)main.c
-MANDATORY_SRC	= $(SRC_DIR)init.c\
-				  $(SRC_DIR)actions.c\
-				  $(SRC_DIR)destroy.c\
-				  $(SRC_DIR)forks.c\
-				  $(SRC_DIR)monitor.c\
-				  $(SRC_DIR)monitor_aux.c\
-				  $(SRC_DIR)routine.c\
-				  $(SRC_DIR)routine_utils.c\
-				  $(SRC_DIR)threads.c\
-				  $(SRC_DIR)time.c\
-				  $(SRC_DIR)utils.c\
-				  $(SRC_DIR)utils_libft.c\
-				  $(SRC_DIR)main.c
+MANDATORY_SRC	= $(SRC_DIR)main_bonus.c\
+				  $(SRC_DIR)init_bonus.c \
+				  $(SRC_DIR)routine_bonus.c \
+				  $(SRC_DIR)actions_bonus.c \
+				  $(SRC_DIR)time_bonus.c \
+				  $(SRC_DIR)utils_bonus.c
 
 # Object files in the same directory as source
 MANDATORY_OBJ	= $(MANDATORY_SRC:.c=.o)
@@ -92,13 +85,13 @@ all:			$(NAME)
 
 $(NAME):		$(MANDATORY_OBJ) 
 				@echo "$(YELLOW)Compiling $(NAME) (Mandatory)...$(RESET)"
-				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) $(LDFLAGS) -o $(NAME)
+				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) -o $(NAME) $(LDFLAGS)
 				@echo "$(GREEN)$(NAME) compiled successfully!$(RESET)"
-				@echo "$(GREEN)+---------------------------------------------+"
-				@echo "|                                             |"
+				@echo "$(GREEN)+---------------------------------------------------+"
+				@echo "|                                                   |"
 				@echo "|         $(CHECKMARK) $(NAME) build successful!          |"
-				@echo "|                                             |"
-				@echo "+---------------------------------------------+$(RESET)"
+				@echo "|                                                   |"
+				@echo "+---------------------------------------------------+$(RESET)"
 
 
 # --- Cleaning Rules ---
