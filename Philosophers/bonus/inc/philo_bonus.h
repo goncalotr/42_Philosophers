@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/03 13:13:59 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:43:02 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-# include <pthread.h>
 # include <sys/time.h>
 
 # include <string.h>
@@ -28,8 +27,10 @@
 # include <limits.h>
 # include <stdbool.h>
 
+# include <pthread.h>	// monitor thread
 # include <semaphore.h>	// main bonus library
 # include <fcntl.h>		// O_CREAT, O_EXCL
+# include <signal.h>	// kill()
 
 /**************************************************************************
  * SECTION: Macros
@@ -46,9 +47,11 @@
 # define PHILO_MAX 300
 # define USLEEP_CHECK_INTERVAL 1 // in miliseconds, check every ms
 
-# define SEM_FORKS "/philo_forks"
-# define SEM_WRITE "/philo_write"
-# define SEM_DEAD  "/philo_dead"
+// Semaphore names (must start with '/')
+# define SEM_FORKS "/philo_forks_sem"
+# define SEM_WRITE "/philo_write_sem"
+# define SEM_DEAD  "/philo_dead_sem"
+# define SEM_MEALS "/philo_meals_sem"
 
 /**************************************************************************
  * SECTION: Structs

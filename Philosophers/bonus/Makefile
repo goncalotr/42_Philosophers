@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/06/27 14:53:13 by goteixei         ###   ########.fr        #
+#    Updated: 2025/07/04 14:09:06 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ FOLDER			= 📁
 SPARKLES		= ✨
 
 # --- Program Name ---
-NAME 			= philo
+NAME 			= philo_bonus
 
 # Directories
 INC_DIR			= inc/
