@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:37:33 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:43:53 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ size_t	philo_get_time(void);
 int		philo_error(const char *msg);
 int		ft_atol(const char *str);
 void	philo_log_state(t_philo *philo, const char *state_msg);
-void	phiilo_cleanup(t_program *program);
+void	philo_cleanup(t_program *program);
 
 #endif
