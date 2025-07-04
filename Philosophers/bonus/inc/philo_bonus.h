@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:43:53 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:52:37 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	*philo_waiter_routine(void *arg);
 int		philo_init_program(t_program *program, int argc, char **argv);
 
 // --- routine_bonus.c ---
-void	philosopher_routine(t_philo *philo);
+void	philo_routine(t_philo *philo);
 
 // --- actions_bonus.c ---
 void	philo_take_forks(t_philo *philo);

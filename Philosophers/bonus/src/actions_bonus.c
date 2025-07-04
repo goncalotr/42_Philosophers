@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:20:34 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:24:27 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:51:12 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 void	philo_take_forks(t_philo *philo)
 {
 	sem_wait(philo->forks_sem);
-	log_state(philo, "has taken a fork");
+	philo_log_state(philo, "has taken a fork");
 	sem_wait(philo->forks_sem);
-	log_state(philo, "has taken a fork");
+	philo_log_state(philo, "has taken a fork");
 }
 
 /**
@@ -44,8 +44,8 @@ void	philo_release_forks(t_philo *philo)
  */
 void	philo_eat(t_philo *philo)
 {
-	log_state(philo, "is eating");
-	philo->last_meal_time = get_time();
+	philo_log_state(philo, "is eating");
+	philo->last_meal_time = philo_get_time();
 	usleep(philo->time_to_eat * 1000);
 	philo->meals_eaten++;
 }
@@ -56,7 +56,7 @@ void	philo_eat(t_philo *philo)
  */
 void	philo_sleep(t_philo *philo)
 {
-	log_state(philo, "is sleeping");
+	philo_log_state(philo, "is sleeping");
 	usleep(philo->time_to_sleep * 1000);
 }
 
@@ -66,5 +66,5 @@ void	philo_sleep(t_philo *philo)
  */
 void	philo_think(t_philo *philo)
 {
-	log_state(philo, "is thinking");
+	philo_log_state(philo, "is thinking");
 }

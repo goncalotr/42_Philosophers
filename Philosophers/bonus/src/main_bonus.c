@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:46:03 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:44:07 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:53:24 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	philo_launch_philos(t_program *program)
 			return (philo_error("fork() failed"));
 		if (program->philos[i].pid == 0)
 		{
-			philosopher_routine(&program->philos[i]);
+			philo_routine(&program->philos[i]);
 			exit(0);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:24:54 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:31:07 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:50:33 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ void	*philo_monitor_routine(void *arg)
 	philo = (t_philo *)arg;
 	while (1)
 	{
-		if ((get_time() - philo->last_meal_time) > (size_t)philo->time_to_die)
+		if ((philo_get_time() - philo->last_meal_time) > \
+(size_t)philo->time_to_die)
 		{
 			sem_wait(philo->write_sem);
-			printf("%zu %d died\n", get_time() - philo->start_time, philo->id);
+			printf("%zu %d died\n", philo_get_time() - philo->start_time, \
+philo->id);
 			sem_post(philo->dead_sem);
 			exit(1);
 		}
@@ -60,7 +62,8 @@ void	*philo_monitor_routine(void *arg)
 void	philo_routine(t_philo *philo)
 {
 	philo->last_meal_time = philo->start_time;
-	if (pthread_create(&philo->monitor_thread, NULL, &monitor_routine, philo))
+	if (pthread_create(&philo->monitor_thread, NULL, &philo_monitor_routine, \
+philo))
 	{
 		philo_error("Failed to create monitor thread");
 		exit(1);
@@ -69,9 +72,9 @@ void	philo_routine(t_philo *philo)
 		usleep(1000);
 	while (1)
 	{
-		take_forks(philo);
-		eat(philo);
-		release_forks(philo);
+		philo_take_forks(philo);
+		philo_eat(philo);
+		philo_release_forks(philo);
 		philo_sleep(philo);
 		philo_think(philo);
 	}

@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:01:23 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:08:21 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:49:02 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ time_eat time_sleep [num_meals]"));
 		if (program->philos[0].num_times_to_eat <= 0)
 			return (philo_error("Number of meals must be a positive number"));
 	}
-	init_philos(program);
-	return (init_semaphores(program));
+	philo_init_philos(program);
+	return (philo_init_semaphores(program));
 }

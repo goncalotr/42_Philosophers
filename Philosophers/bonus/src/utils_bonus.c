@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:55:20 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:02:09 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:52:08 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	philo_log_state(t_philo *philo, const char *state_msg)
 	size_t	timestamp_ms;
 
 	sem_wait(philo->write_sem);
-	timestamp_ms = get_time() - philo->start_time;
+	timestamp_ms = philo_get_time() - philo->start_time;
 	printf("%zu %d %s\n", timestamp_ms, philo->id, state_msg);
 	sem_post(philo->write_sem);
 }
@@ -81,7 +81,7 @@ void	philo_log_state(t_philo *philo, const char *state_msg)
  * 1 Kill any remaining child processes
  * 2 Close and unlink all named semaphores
  */
-void	ms_cleanup(t_program *program)
+void	philo_cleanup(t_program *program)
 {
 	int	i;
 

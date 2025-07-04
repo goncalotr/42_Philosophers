@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/07/04 14:41:37 by goteixei         ###   ########.fr        #
+#    Updated: 2025/07/04 14:55:03 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,11 +88,11 @@ $(NAME):		$(MANDATORY_OBJ)
 				@echo "$(YELLOW)Compiling $(NAME) (Mandatory)...$(RESET)"
 				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) $(LDFLAGS) -o $(NAME)
 				@echo "$(GREEN)$(NAME) compiled successfully!$(RESET)"
-				@echo "$(GREEN)+---------------------------------------------+"
-				@echo "|                                             |"
+				@echo "$(GREEN)+---------------------------------------------------+"
+				@echo "|                                                   |"
 				@echo "|         $(CHECKMARK) $(NAME) build successful!          |"
-				@echo "|                                             |"
-				@echo "+---------------------------------------------+$(RESET)"
+				@echo "|                                                   |"
+				@echo "+---------------------------------------------------+$(RESET)"
 
 
 # --- Cleaning Rules ---
