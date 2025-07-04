@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/07/04 14:09:06 by goteixei         ###   ########.fr        #
+#    Updated: 2025/07/04 14:22:15 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,8 @@ BASE_CFLAGS		= -Wall -Wextra -Werror -g -pthread
 BASE_CFLAGS		+= -I$(INC_DIR)
 
 # Base flags applied to all linking processes
-BASE_LDFLAGS	= -pthread
+# We need pthread for the monitor thread inside each child process
+BASE_LDFLAGS	= -lpthread
 
 # Final Compiler Flags (combines base with any extras)
 CFLAGS			= $(BASE_CFLAGS) $(EXTRA_COMPILE_FLAGS)
@@ -66,19 +67,12 @@ LDFLAGS			= $(BASE_LDFLAGS) $(EXTRA_LINK_FLAGS)
 # -------------------------------------------------------------
 
 #MANDATORY_SRC	= $(MANDATORY_DIR)main.c
-MANDATORY_SRC	= $(SRC_DIR)init.c\
-				  $(SRC_DIR)actions.c\
-				  $(SRC_DIR)destroy.c\
-				  $(SRC_DIR)forks.c\
-				  $(SRC_DIR)monitor.c\
-				  $(SRC_DIR)monitor_aux.c\
-				  $(SRC_DIR)routine.c\
-				  $(SRC_DIR)routine_utils.c\
-				  $(SRC_DIR)threads.c\
-				  $(SRC_DIR)time.c\
-				  $(SRC_DIR)utils.c\
-				  $(SRC_DIR)utils_libft.c\
-				  $(SRC_DIR)main.c
+MANDATORY_SRC	= $(SRC_DIR)main.c\
+				  $(SRC_DIR)init_bonus.c \
+				  $(SRC_DIR)routine_bonus.c \
+				  $(SRC_DIR)actions_bonus.c \
+				  $(SRC_DIR)time_bonus.c \
+				  $(SRC_DIR)utils_bonus.c
 
 # Object files in the same directory as source
 MANDATORY_OBJ	= $(MANDATORY_SRC:.c=.o)
