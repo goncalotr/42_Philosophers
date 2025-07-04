@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:34:35 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:35:32 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,25 +106,25 @@ int		main(int argc, char **argv);
 void	*waiter_routine(void *arg);
 
 // --- init_bonus.c ---
-int		init_program(t_program *program, int argc, char **argv);
+int		philo_init_program(t_program *program, int argc, char **argv);
 
 // --- routine_bonus.c ---
 void	philosopher_routine(t_philo *philo);
 
 // --- actions_bonus.c ---
-void	take_forks(t_philo *philo);
-void	eat(t_philo *philo);
-void	release_forks(t_philo *philo);
+void	philo_take_forks(t_philo *philo);
+void	philo_release_forks(t_philo *philo);
+void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
 
 // --- time_bonus.c ---
-size_t	get_time(void);
+size_t	philo_get_time(void);
 
 // --- utils_bonus.c ---
 int		philo_error(const char *msg);
 int		ft_atol(const char *str);
-void	log_state(t_philo *philo, const char *state_msg);
-void	cleanup(t_program *program);
+void	philo_log_state(t_philo *philo, const char *state_msg);
+void	phiilo_cleanup(t_program *program);
 
 #endif
