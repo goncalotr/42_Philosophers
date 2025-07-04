@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/07/04 14:55:03 by goteixei         ###   ########.fr        #
+#    Updated: 2025/07/04 15:46:55 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,8 +55,7 @@ BASE_CFLAGS		= -Wall -Wextra -Werror -g -pthread
 BASE_CFLAGS		+= -I$(INC_DIR)
 
 # Base flags applied to all linking processes
-# We need pthread for the monitor thread inside each child process
-BASE_LDFLAGS	= -lpthread
+BASE_LDFLAGS	= -pthread
 
 # Final Compiler Flags (combines base with any extras)
 CFLAGS			= $(BASE_CFLAGS) $(EXTRA_COMPILE_FLAGS)
@@ -86,7 +85,7 @@ all:			$(NAME)
 
 $(NAME):		$(MANDATORY_OBJ) 
 				@echo "$(YELLOW)Compiling $(NAME) (Mandatory)...$(RESET)"
-				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) $(LDFLAGS) -o $(NAME)
+				@$(CC) $(CFLAGS) $(MANDATORY_OBJ) -o $(NAME) $(LDFLAGS)
 				@echo "$(GREEN)$(NAME) compiled successfully!$(RESET)"
 				@echo "$(GREEN)+---------------------------------------------------+"
 				@echo "|                                                   |"

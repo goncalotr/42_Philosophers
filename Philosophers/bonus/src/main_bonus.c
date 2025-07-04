@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:46:03 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 15:35:49 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:49:25 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,27 +83,35 @@ void	*philo_waiter_routine(void *arg)
 int	main(int argc, char **argv)
 {
 	t_program	program;
-	pthread_t	waiter_thread;
+	//pthread_t	waiter_thread;
 
 	printf("program start");
 	if (philo_init_program(&program, argc, argv) != 0)
 		return (1);
+	/*
 	if (program.philos[0].num_times_to_eat > 0)
 	{
-		if (pthread_create(&waiter_thread, NULL, &philo_waiter_routine, &program))
+		if (pthread_create(&waiter_thread, NULL, &philo_waiter_routine, \
+&program))
 		{
 			philo_cleanup(&program);
 			return (philo_error("Failed to create waiter thread"));
 		}
 	}
+	*/
+	printf("--- LAUNCHING PHILOS ---\n");
+
 	if (philo_launch_philos(&program) != 0)
 	{
 		philo_cleanup(&program);
 		return (1);
 	}
+	printf("--- PARENT WAITING ---\n");
+
 	sem_wait(program.dead_sem);
+	printf("--- END SIGNAL RECEIVED, CLEANING UP ---\n");
 	philo_cleanup(&program);
-	if (program.philos[0].num_times_to_eat > 0)
-		pthread_join(waiter_thread, NULL);
+	//if (program.philos[0].num_times_to_eat > 0)
+	//	pthread_join(waiter_thread, NULL);
 	return (0);
 }
