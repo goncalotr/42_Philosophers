@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:46:03 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:53:24 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:35:49 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	main(int argc, char **argv)
 	t_program	program;
 	pthread_t	waiter_thread;
 
+	printf("program start");
 	if (philo_init_program(&program, argc, argv) != 0)
 		return (1);
 	if (program.philos[0].num_times_to_eat > 0)

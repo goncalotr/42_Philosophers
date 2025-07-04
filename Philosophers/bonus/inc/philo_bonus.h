@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 14:52:37 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:21:55 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_philo
 	sem_t			*meals_sem;
 
 	pthread_t		monitor_thread;
+	pthread_mutex_t	state_lock;
 }	t_philo;
 
 typedef struct s_program
