@@ -6,12 +6,12 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:35:27 by goteixei          #+#    #+#             */
-/*   Updated: 2025/07/04 13:43:02 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:34:35 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 /**************************************************************************
  * SECTION: Libraries
@@ -66,95 +66,65 @@ struct	s_program;
 // time in ms
 typedef struct s_philo
 {
-	size_t				num_of_philos;
-	size_t				time_to_die;
-	size_t				time_to_eat;
-	size_t				time_to_sleep;
-	long				num_times_to_eat;
-	pthread_t			thread;
-	int					id;
-	int					eating;
-	size_t				meals_eaten;
-	size_t				start_time;
-	size_t				last_meal_time;
-	pthread_mutex_t		*fork_a;
-	pthread_mutex_t		*fork_b;
-	pthread_mutex_t		*write_lock;
-	pthread_mutex_t		*dead_lock;
-	pthread_mutex_t		lock;
-	int					*dead_flag;
-	struct s_program	*program;
+	int				id;
+	pid_t			pid;
+	long			num_of_philos;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			num_times_to_eat;
+
+	long			meals_eaten;
+	size_t			start_time;
+	size_t			last_meal_time;
+
+	sem_t			*forks_sem;
+	sem_t			*write_sem;
+	sem_t			*dead_sem;
+	sem_t			*meals_sem;
+
+	pthread_t		monitor_thread;
 }	t_philo;
 
 typedef struct s_program
 {
-	int					dead_flag;
-	pthread_mutex_t		dead_lock;
-	pthread_mutex_t		write_lock;
-	int					num_of_philos;
-	long				num_times_to_eat;
-	char				**argv;
-	t_philo				*philos;
+	long			num_of_philos;
+	t_philo			philos[300];
+
+	sem_t			*forks_sem;
+	sem_t			*write_sem;
+	sem_t			*dead_sem;
+	sem_t			*meals_sem;
 }	t_program;
 
 /**************************************************************************
  * SECTION: Functions
  **************************************************************************/
 
-// Program task specific functions
+// --- main_bonus.c ---
+int		main(int argc, char **argv);
+void	*waiter_routine(void *arg);
 
-// --- routine.c ---
-void	*philo_routine(void *arg);
+// --- init_bonus.c ---
+int		init_program(t_program *program, int argc, char **argv);
 
-// --- routine_utils.c ---
-int		philo_is_sim_over(t_philo *philo);
-void	philo_log_state(t_philo *philo, const char *state_msg);
+// --- routine_bonus.c ---
+void	philosopher_routine(t_philo *philo);
 
-// --- actions.c ---
-void	philo_eat(t_philo *philo);
+// --- actions_bonus.c ---
+void	take_forks(t_philo *philo);
+void	eat(t_philo *philo);
+void	release_forks(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
 
-// --- monitor.c ---
-int		philo_check_death(t_philo *philo);
-int		philo_handle_death(t_program *program, int philo_index);
-int		philo_check_stop_conditions_aux(t_program *program, \
-int *all_ate_flag);
-void	philo_monitor_sim(t_program *program);
+// --- time_bonus.c ---
+size_t	get_time(void);
 
-// --- forks.c ---
-void	philo_release_forks(t_philo *philo);
-int		philo_take_forks_ordered(t_philo *philo);
-
-// --- threads.c ---
-int		philo_thread_create(t_program *program, pthread_mutex_t *forks);
-
-// Auxiliary functions
-
-// --- init.c ---
-int		philo_check_valid_args(int argc, char **argv);
-int		philo_init_program(t_program *program, t_philo *philos, \
-int argc, char **argv);
-int		philo_init_forks(pthread_mutex_t *forks, int num_philosophers);
-int		philo_init_philos(t_program *program, pthread_mutex_t *forks);
-
-// --- destroy.c ---
-void	philo_destroy_all(const char *msg, t_program *program, \
-pthread_mutex_t *forks);
-
-// --- time.c ---
-int		philo_usleep_simple(size_t us);
-int		philo_usleep(t_philo *philo, size_t total_ms);
-size_t	philo_get_time(void);
-
-// --- utils.c ---
-int		philo_error_msg(const char *str);
-int		ft_strlen(const char *str);
-int		ft_atol(char *str);
-
-// Other functions
-
-// --- main.c ---
-//int		main(int argc, char **argv);
+// --- utils_bonus.c ---
+int		philo_error(const char *msg);
+int		ft_atol(const char *str);
+void	log_state(t_philo *philo, const char *state_msg);
+void	cleanup(t_program *program);
 
 #endif
