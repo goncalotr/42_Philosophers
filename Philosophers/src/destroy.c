@@ -6,7 +6,7 @@
 /*   By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:09:50 by goteixei          #+#    #+#             */
-/*   Updated: 2025/06/27 15:16:03 by goteixei         ###   ########.fr       */
+/*   Updated: 2025/07/05 11:53:06 by goteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,11 @@ static void	philo_destroy_philos(t_program *program)
 	if (!program->philos)
 		return ;
 	i = 0;
-	// Loop to destroy each philo's personal lock
 	while (i < program->num_of_philos)
 	{
 		pthread_mutex_destroy(&program->philos[i].lock);
 		i++;
 	}
-	// Then free the memory for the philos array
 	free(program->philos);
 	program->philos = NULL;
 }
@@ -77,7 +75,7 @@ static void	philo_destroy_philos(t_program *program)
 void	philo_destroy_all(const char *msg, t_program *program, \
 pthread_mutex_t *forks)
 {
- 	if (msg)
+	if (msg)
 		philo_error_msg(msg);
 	if (program)
 	{
