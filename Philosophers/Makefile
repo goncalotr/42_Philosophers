@@ -6,7 +6,7 @@
 #    By: goteixei <goteixei@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/09 09:06:23 by goteixei          #+#    #+#              #
-#    Updated: 2025/06/27 14:53:13 by goteixei         ###   ########.fr        #
+#    Updated: 2025/07/05 12:08:38 by goteixei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -160,7 +160,7 @@ re_helgrind:
 
 re_sanitize:
 				@echo "$(BLUE)--- Building with General Sanitizers (ASan, LSan, UBSan) ---$(RESET)"
-				@$(MAKE) --no-print-directory fclea
+				@$(MAKE) --no-print-directory fclean
 				@$(MAKE) --no-print-directory all EXTRA_COMPILE_FLAGS="$(GEN_SAN_FLAGS)" EXTRA_LINK_FLAGS="$(GEN_SAN_FLAGS)"
 				@echo "$(GREEN)$(CHECKMARK) Built $(NAME) with general sanitizers.$(RESET)"
 				@echo "$(BLUE)Run with: ./$(NAME) $(ARGS)$(RESET)"
